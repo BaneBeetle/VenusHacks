@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="author" content="VenusHacks">
         <meta name="description" content="Videos">
-        <link rel="stylesheet" href="videos.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='videos.css') }}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
         <title>Videos</title>
     </head>
@@ -25,6 +25,22 @@
             <div class="center-text">
                 <h1>Watch suggested videos</h1>
             </div>
+        </div>
+        <div class="container">
+            <div class="center-text">
+                <form action="/videos.html" method="POST" class="search-form">
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" required>
+                    <label for="learner"><br>Learner Type:</label>
+                    <input type="text" id="learner" name="learner" required>
+                    <button type="submit">Get Responses</button>
+                </form>                
+            </div>
+        </div>
+        <div class="text-block-2">
+            {% for response in responses %}
+            <div class="response">{{ response }}</div>
+            {% endfor %}
         </div>
     </body> 
 </html>
