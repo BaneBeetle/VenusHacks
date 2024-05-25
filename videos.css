@@ -5,7 +5,7 @@
     width: 100%;
     transform: translateX(-50%);
     background-color: #E6E3E3;
-    padding: 10%;
+    padding: 2%;
     text-align: center;
     z-index: 1000;
     opacity: 0.8;
@@ -27,7 +27,7 @@
     text-decoration: none;
     font-family: 'Poppins', sans-serif;
     padding: 10px;
-    margin: 20px;
+    margin: 30px;
     transition: background-color 0.3s;
 }
 
@@ -46,18 +46,27 @@ label,
 
 .container {
     width: 100%;
-    background-color:#988686
-  }
+}
+
+.position-relative {
+    display: flex;
+    align-items: center;
+}
 
 h1 {
     font-family: 'Poppins', sans-serif;
     color: #D1D0D0;
-    font-size: 10%;
-    margin-left: 5%;
+    font-size: 400%;
+    font-weight:200;
+    margin-top: 10%;
 }
 
 body {
-    background-color:#988686;
+    background-color:#5C4E4E;
     width: 100%;
     font-family: 'Poppins', sans-serif; /* Use Poppins font */
+}
+
+.center-text {
+    text-align: center;
 }
