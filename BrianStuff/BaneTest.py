@@ -14,9 +14,11 @@ def openai_test():
 
     subject = input("Please provide a subject!\n")
     prompt = f"Please give me some videos links to help study {subject}"
+    learner = input("What kind of learner are you?\n")
+    prompt2 = f"What study tips do you have if I am a {learner} learner?"
     stream = client.chat.completions.create(
         model="gpt-3.5-turbo",
-        messages=[{"role": "user", "content": prompt}],
+        messages=[{"role": "user", "content": prompt}, {"role": "user", "content": prompt2}],
         stream=True,
     )
     for chunk in stream:
