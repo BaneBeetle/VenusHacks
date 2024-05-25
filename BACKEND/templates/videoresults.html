@@ -3,15 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenAI Chat Results</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='videos2.css') }}">
+    <title>Video Results</title>
 </head>
 <body>
-    <div class="container">
-        <h1>OpenAI Chat Results</h1>
-        {% for response in responses %}
-            <div class="response">{{ response }}</div>
-        {% endfor %}
+    <h1>Video Results</h1>
+    <div class="video-container">
+        {% if responses %}
+            {% for response in responses %}
+                <div class="video-item">
+                    <h2>{{ response['title'] }}</h2>
+                    <p>{{ response['tips'] }}</p>
+                    <iframe width="560" height="315" src="{{ response.video_url }}" frameborder="0" allowfullscreen></iframe>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
     </div>
 </body>
 </html>

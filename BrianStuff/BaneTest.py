@@ -1,3 +1,4 @@
+import requests
 import openai
 from dotenv import load_dotenv # This is where I want to keep my API key secret
 import os
@@ -7,10 +8,8 @@ def configure(): # In charge of getting .env from my environment, this contains 
 
 
 def openai_test():
+    configure()
     OPENAI_API_KEY = os.getenv('api_key') # Grabs the API key and puts it into the variable OPENAI_API_KEY (Has to be named this)
-    if OPENAI_API_KEY is None:
-        raise ValueError("API Key pyPnot found.")
-    
     openai.api_key = OPENAI_API_KEY # Feed it into openai
 
     if not OPENAI_API_KEY:
@@ -39,27 +38,49 @@ def openai_test():
 
         for chunk in stream:
             if chunk.choices[0].delta.content is not None:
-                #print(chunk.choices[0].delta.content, end="")
                 string += chunk.choices[0].delta.content
             else:
                 responses.append(string.split("\n"))
                 string = ""
-                #if (chunk.choices[0].delta.content.isdigit()):
-                 #   responses.append(string)
-                  #  string = ""
-            #responses.append(chunk.choices[0])
     return responses
 
-def main():
+
+def create_post():
     configure()
+    NOTION_TOKEN = os.getenv('NOTION_KEY')
+    DATABASE_ID = os.getenv('NOTION_DATABASE_ID')
+    headers = {
+    "Authorization": "Bearer " + NOTION_TOKEN,
+    "Content-Type": "application/json",
+    "Notion-Version": "2022-06-28",
+    }
+
+    description = input("Whats your name!\n")
+    title = input("Write a message!\n")
+    data = {
+    "Name": {"title": [{"text": {"content": description}}]},
+    "Message": {"rich_text": [{"text": {"content": title}}]}
+    }
+
+    create_url = "https://api.notion.com/v1/pages"
+
+    payload = {"parent": {"database_id": DATABASE_ID}, "properties": data}
+
+    res = requests.post(create_url, headers=headers, json=payload)
+
+    return res
+
+
+
+def main():
+    #configure()
     responses = openai_test()
-    #print("LOOK BELOW")
-    #print(responses)
-    #print("SIZE:")
-    #print(len(responses))
     for response in responses:
         for line in response:
+            if line == "\n":
+                continue
             print(line)
 
-
-main()
+    create_post()
+if __name__ == "__main__":
+    main()

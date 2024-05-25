@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenAI Chat</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='videos2.css') }}">
+    <title>Video Results</title>
 </head>
 <body>
-    <div class="container">
-        <h1>OpenAI Chat</h1>
-        <form action="/results" method="post">
-            <label for="subject">Subject:</label>
-            <input type="text" id="subject" name="subject" required>
-            <label for="learner">Learner Type:</label>
-            <input type="text" id="learner" name="learner" required>
-            <button type="submit">Get Responses</button>
-        </form>
-    </div>
+    <h1>Video Results</h1>
+    <form action="/videosactual.html" method="post">
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject" required><br><br>
+        <label for="learner">Learning Type:</label>
+        <select id="learner" name="learner" required>
+            <option value="visual">Visual</option>
+            <option value="auditory">Auditory</option>
+            <option value="kinesthetic">Kinesthetic</option>
+        </select><br><br>
+        <input type="submit" value="Submit">
+    </form>
 </body>
 </html>
