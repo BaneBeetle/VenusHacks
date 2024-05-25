@@ -35,13 +35,22 @@
     background-color: #DDD6D6;
 }
 
-p,
-a:active,
-label,
-.form-group {
+a {
     font-family: 'Poppins', sans-serif;
-    color: rgb(0, 0, 0);
-    font-size: 1vw;
+    color: #5C4E4E;
+    font-size: 1em;
+}
+
+label {
+    font-family: 'Poppins', sans-serif;
+    color: #D1D0D0;
+    font-size: 1em;
+}
+p {
+    font-family: 'Poppins', sans-serif;
+    color: #5C4E4E;
+    font-size: 1em;
+    padding: 2%;
 }
 
 
@@ -70,4 +79,46 @@ body {
 
 .center-text {
     text-align: center;
+}
+.playlist-results {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 100;
+    color: #000000;
+    font-size: 200%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.text-block-2 {
+    background-color: #E6E3E3;
+    height: auto;
+    width: 100%;
+    margin-top: 4%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    overflow: hidden; 
+  }
+
+  button {
+    background-color: #D1D0D0;
+    border: none;
+    color: #000000;
+    padding: 0.3%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 7%;
+}
+
+.search-bar {
+    width: 20%;
+    padding: 0.2%;
+    font-size: 1.2em;
+    border: 2px solid #4a2e2e;
+    border-radius: 10px;
+    margin-top: 1%;
+    margin-left: 3%;
 }
