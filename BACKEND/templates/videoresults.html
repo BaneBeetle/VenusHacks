@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenAI Chat Results</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='videos2.css') }}">
+    <title>Video Results</title>
 </head>
 <body>
-    <div class="container">
-        <h1>OpenAI Chat Results</h1>
+    <h1>Video Results for {{ subject }} Learners studying {{ learner }}</h1>
+    <div>
         {% for response in responses %}
-            <div class="response">{{ response }}</div>
+            <iframe width="560" height="315" src="{{ response }}" frameborder="0" allowfullscreen></iframe>
+            <br><br>
         {% endfor %}
     </div>
 </body>

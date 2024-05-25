@@ -55,9 +55,10 @@ def display_playlists(category):
         print("No playlists found.")
         
         
-load_dotenv()
-
+        
+        
 def configure_openai():
+    load_dotenv()
     OPENAI_API_KEY = os.getenv('api_key')
     if OPENAI_API_KEY is None:
         raise ValueError("API Key not found.")
@@ -67,8 +68,7 @@ def configure_openai():
 def get_openai_responses(subject, learner):
     prompts = [
         f"Please give me some videos links to help study {subject}",
-        f"What study tips do you have if I am a {learner} learner?"
-    ]
+        f"What study tips do you have if I am a {learner} learner?"]
 
     responses = []
 
@@ -84,6 +84,8 @@ def get_openai_responses(subject, learner):
         responses.append(response.choices[0].text.strip())
 
     return responses
+
+
 
 
 #FLASK HANDLING
@@ -112,7 +114,7 @@ def cafes():
 
 
 
-@app.route('/music.html', methods=['GET', 'POST'])     # WORKS BUT THERES 2 MUSIC.CSS AND MUSIC.HTML FILES?
+@app.route('/music.html', methods=['GET', 'POST'])    
 
 def music():
     playlists = None
@@ -140,8 +142,8 @@ def video_results():
     learner = request.form['learner']
     configure_openai()
     responses = get_openai_responses(subject, learner)
-    return render_template('videoresults.html', responses=responses)
 
+    return render_template('videoresults.html', subject=subject, learner=learner, responses=responses)
 
 
 if __name__ == '__main__':
