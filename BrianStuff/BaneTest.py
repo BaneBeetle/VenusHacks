@@ -7,8 +7,9 @@ def configure(): # In charge of getting .env from my environment, this contains 
 
 
 def openai_test():
-    #OPENAI_API_KEY = os.getenv('api_key') # Grabs the API key and puts it into the variable OPENAI_API_KEY (Has to be named this)
-    OPENAI_API_KEY = "sk-proj-OockXV9SUEpoRiK0Yy84T3BlbkFJZTANvyHVWAybwKQ07VuL"
+    configure()
+    OPENAI_API_KEY = os.getenv('api_key') # Grabs the API key and puts it into the variable OPENAI_API_KEY (Has to be named this)
+    #OPENAI_API_KEY = "sk-proj-OockXV9SUEpoRiK0Yy84T3BlbkFJZTANvyHVWAybwKQ07VuL"
     openai.api_key = OPENAI_API_KEY # Feed it into openai
 
     if not OPENAI_API_KEY:
@@ -23,7 +24,7 @@ def openai_test():
     learner = input("What kind of learner are you?\n")
     prompt2 = f"What study tips do you have if I am a {learner} learner?"
     prompts.append(prompt)
-    prompts.append(prompt2)git 
+    prompts.append(prompt2)
 
     responses = []
 
@@ -44,11 +45,13 @@ def openai_test():
     return responses
 
 def main():
-    configure()
+    #configure()
     responses = openai_test()
     for response in responses:
         for line in response:
+            if line == "\n":
+                continue
             print(line)
 
-
-main()
+if __name__ == "__main__":
+    main()
