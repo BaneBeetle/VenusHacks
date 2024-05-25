@@ -54,18 +54,17 @@ def display_playlists(category):
 
 #FLASK HANDLING
 
-@app.route('/')    #WORKS
-
+@app.route('/')
 def home():
     return render_template('homepage.html')
 
+@app.route('/flashcards')
+def flashcards():
+    return render_template('flashcards.html')
 
-
-@app.route('/homepage.html')     # WORKS (added so that homepage bar redirects to itself)
-
-def homepage():
-    return render_template('homepage.html')
-
+@app.route('/videos')
+def videos():
+    return render_template('videos.html')
 
 
 @app.route('/cafes.html', methods=['GET', 'POST'])    # HELEN NEEDS TO CREATE A CAFES SUBPAGE
