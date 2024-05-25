@@ -11,17 +11,27 @@ def openai_test():
     openai.api_key = OPENAI_API_KEY
 
     client = openai.OpenAI(api_key=OPENAI_API_KEY)
-
+    prompts = []
     subject = input("Please provide a subject!\n")
     prompt = f"Please give me some videos links to help study {subject}"
-    stream = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[{"role": "user", "content": prompt}],
-        stream=True,
-    )
-    for chunk in stream:
-        if chunk.choices[0].delta.content is not None:
-            print(chunk.choices[0].delta.content, end="")
+    learner = input("What kind of learner are you?\n")
+    prompt2 = f"What study tips do you have if I am a {learner} learner?"
+    prompts.append(prompt)
+    prompts.append(prompt2)
+
+    for specific_prompt in prompts:
+
+        stream = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": specific_prompt}],
+            stream=True,
+        )
+
+        for chunk in stream:
+            if chunk.choices[0].delta.content is not None:
+                print(chunk.choices[0].delta.content, end="")
+
+
 
 
 def main():
