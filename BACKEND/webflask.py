@@ -40,6 +40,7 @@ def fetch_playlists(category, max_results=10):
     }
     response = requests.get(BASE_URL, params=params)
     playlists = response.json()
+    print(playlists)
     return playlists
 
 
