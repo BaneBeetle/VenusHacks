@@ -7,7 +7,8 @@ def configure(): # In charge of getting .env from my environment, this contains 
 
 
 def openai_test():
-    OPENAI_API_KEY = os.getenv('api_key') # Grabs the API key and puts it into the variable OPENAI_API_KEY (Has to be named this)
+    #OPENAI_API_KEY = os.getenv('api_key') # Grabs the API key and puts it into the variable OPENAI_API_KEY (Has to be named this)
+    OPENAI_API_KEY = "sk-proj-OockXV9SUEpoRiK0Yy84T3BlbkFJZTANvyHVWAybwKQ07VuL"
     openai.api_key = OPENAI_API_KEY # Feed it into openai
 
     if not OPENAI_API_KEY:
@@ -36,24 +37,15 @@ def openai_test():
 
         for chunk in stream:
             if chunk.choices[0].delta.content is not None:
-                #print(chunk.choices[0].delta.content, end="")
                 string += chunk.choices[0].delta.content
             else:
                 responses.append(string.split("\n"))
                 string = ""
-                #if (chunk.choices[0].delta.content.isdigit()):
-                 #   responses.append(string)
-                  #  string = ""
-            #responses.append(chunk.choices[0])
     return responses
 
 def main():
     configure()
     responses = openai_test()
-    #print("LOOK BELOW")
-    #print(responses)
-    #print("SIZE:")
-    #print(len(responses))
     for response in responses:
         for line in response:
             print(line)
