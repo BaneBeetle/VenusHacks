@@ -69,19 +69,18 @@ def videos():
 
 @app.route('/cafes.html', methods=['GET', 'POST'])    # HELEN NEEDS TO CREATE A CAFES SUBPAGE
 
-def Input_City_Output_Cafes():
+def cafes():
     cafes = None
     if request.method == 'POST':
         city_name = request.form['city']
         cafes = search_cafes_in_city(city_name)
-        return render_template('caferesultpage.html', cafes=cafes)
     return render_template('cafes.html', cafes=cafes)
 
 
 
 @app.route('/music.html', methods=['GET', 'POST'])     # WORKS BUT THERES 2 MUSIC.CSS AND MUSIC.HTML FILES?
 
-def index():
+def music():
     playlists = None
     if request.method == 'POST':
         if 'category' in request.form:
@@ -96,9 +95,6 @@ def index():
                     playlists.append({'title': playlist_title, 'url': playlist_url})
 
     return render_template('music.html', playlists=playlists)
-
-
-
 
 
 if __name__ == '__main__':
