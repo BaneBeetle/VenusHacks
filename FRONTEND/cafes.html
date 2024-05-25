@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cafes in City</title>
+</head>
+<body>
+    <h1>Search for Cafes in a City</h1>
+    <form method="POST">
+        <label for="city">Enter a city name:</label>
+        <input type="text" id="city" name="city" required>
+        <button type="submit">Search</button>
+    </form>
+    {% if cafes %}
+        <h2>Cafes in {{ city }}</h2>
+        <ul>
+            {% for cafe in cafes %}
+                <li>{{ cafe.name }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
