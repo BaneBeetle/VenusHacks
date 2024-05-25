@@ -158,7 +158,6 @@ def videoresult():
     learner = request.form['learner']
     
     responses = openai_test(subject, learner)
-    print('LALALALALLALAA', responses)
     return render_template('videoresults.html', responses=responses)
 
 
