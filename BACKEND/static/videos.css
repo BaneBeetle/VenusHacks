@@ -35,22 +35,26 @@
     background-color: #DDD6D6;
 }
 
-p,
-a:active,
-label,
-.form-group {
+a {
     font-family: 'Poppins', sans-serif;
-    color: rgb(0, 0, 0);
-    font-size: 1vw;
+    color: #5C4E4E;
+    font-size: 1em;
 }
 
+label {
+    font-family: 'Poppins', sans-serif;
+    color: #D1D0D0;
+    font-size: 1em;
+}
+p {
+    font-family: 'Poppins', sans-serif;
+    color: #D1D0D0;
+    font-size: 2em;
+    padding: 2%;
+}
 .container {
     width: 100%;
-}
-
-.position-relative {
-    display: flex;
-    align-items: center;
+    margin: 1.5%;
 }
 
 h1 {
@@ -60,9 +64,24 @@ h1 {
     font-weight:200;
     margin-top: 10%;
 }
+h2 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 100;
+    color: #000000;
+    font-size: 200%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+h3 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
+    color: #2c2b2b;
+    font-size: 100%;
+}
 
 body {
-    background-color:#5C4E4E;
+    background-color:#988686;
     width: 100%;
     font-family: 'Poppins', sans-serif; /* Use Poppins font */
 }
@@ -70,3 +89,79 @@ body {
 .center-text {
     text-align: center;
 }
+
+button {
+    background-color: #D1D0D0;
+    border: none;
+    color: #000000;
+    padding: 0.3%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 7%;
+}
+
+.search-bar {
+    width: 15%;
+    padding: 0.2%;
+    font-size: 1.2em;
+    border: 2px solid #4a2e2e;
+    border-radius: 10px;
+    margin-top: 1%;
+    margin-left: 3%;
+}
+
+input[type="text"] {
+    width: 60%;
+    padding: 1%;
+    margin-bottom: 2%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.response {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.search-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-form label,
+.search-form input {
+    width: 50%;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.search-form button {
+    width: 50%;
+    margin-bottom: 2%;
+    text-align: left;
+    padding: 0.8%;
+}
+
+.search-form button {
+    width: auto; /* Adjusts button width if needed */
+    align-self: center; /* Centers the button */
+    margin-top: 20px;
+}
+
+.text-block-2 {
+    background-color: #5C4E4E;
+    height: auto;
+    width: 100%;
+    margin-top: 4%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    overflow: hidden; 
+  }

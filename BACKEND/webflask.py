@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import requests
 from dotenv import load_dotenv
 import os
 import openai
+
 
 app = Flask(__name__)
 
@@ -55,33 +56,47 @@ def display_playlists(category):
         print("No playlists found.")
         
         
-        
-        
-def configure_openai():
+
+
+
+def configure(): 
     load_dotenv()
+
+def openai_test(subject, learner):
     OPENAI_API_KEY = os.getenv('api_key')
     if OPENAI_API_KEY is None:
         raise ValueError("API Key not found.")
 
-    openai.api_key = OPENAI_API_KEY
+    openai.api_key = OPENAI_API_KEY 
 
-def get_openai_responses(subject, learner):
-    prompts = [
-        f"Please give me some videos links to help study {subject}",
-        f"What study tips do you have if I am a {learner} learner?"]
+    if not OPENAI_API_KEY:
+        raise ValueError("API Key not found. Please set the 'api_key' environment variable in your .env file.")
+    
+    client = openai.OpenAI(api_key=OPENAI_API_KEY) 
+
+    prompts = [] 
+
+    prompt = f"Please give me some videos links to help study {subject}" 
+    prompt2 = f"What study tips do you have if I am a {learner} learner?"
+    prompts.append(prompt)
+    prompts.append(prompt2)
 
     responses = []
 
     for specific_prompt in prompts:
-        response = openai.Completion.create(
+        string = ""
+        stream = client.chat.completions.create(
             model="gpt-3.5-turbo",
-            prompt=specific_prompt,
-            max_tokens=150,
-            n=1,
-            stop=None,
-            temperature=0.7
+            messages=[{"role": "user", "content": specific_prompt}],
+            stream=True,
         )
-        responses.append(response.choices[0].text.strip())
+
+        for chunk in stream:
+            if chunk.choices[0].delta.content is not None:
+                string += chunk.choices[0].delta.content
+            else:
+                responses.append(string.split("\n"))
+                string = ""
 
     return responses
 
@@ -100,7 +115,7 @@ def flashcards():
 
 @app.route('/videos')
 def videos():
-    return render_template('videosactual.html')
+    return render_template('videos.html')
 
 
 @app.route('/cafes.html', methods=['GET', 'POST'])    # HELEN NEEDS TO CREATE A CAFES SUBPAGE
@@ -115,7 +130,6 @@ def cafes():
 
 
 @app.route('/music.html', methods=['GET', 'POST'])    
-
 def music():
     playlists = None
     if request.method == 'POST':
@@ -136,14 +150,13 @@ def music():
 
 
 @app.route('/videosactual.html', methods=['POST'])
-
-def video_results():
+def videoresult():
     subject = request.form['subject']
     learner = request.form['learner']
-    configure_openai()
-    responses = get_openai_responses(subject, learner)
+    
+    responses = openai_test(subject, learner)
+    return render_template('videoresults.html', responses=responses)
 
-    return render_template('videoresults.html', subject=subject, learner=learner, responses=responses)
 
 
 if __name__ == '__main__':

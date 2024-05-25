@@ -3,15 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Videos</title>
+    <title>Video Results</title>
 </head>
 <body>
-    <form action="/videosactual" method="POST">
+    <h1>Video Results</h1>
+    <form action="/videosactual.html" method="post">
         <label for="subject">Subject:</label>
         <input type="text" id="subject" name="subject" required><br><br>
-        <label for="learner">Learner type:</label>
-        <input type="text" id="learner" name="learner" required><br><br>
-        <button type="submit">Search Videos</button>
+        <label for="learner">Learning Type:</label>
+        <select id="learner" name="learner" required>
+            <option value="visual">Visual</option>
+            <option value="auditory">Auditory</option>
+            <option value="kinesthetic">Kinesthetic</option>
+        </select><br><br>
+        <input type="submit" value="Submit">
     </form>
 </body>
 </html>

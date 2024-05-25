@@ -6,12 +6,19 @@
     <title>Video Results</title>
 </head>
 <body>
-    <h1>Video Results for {{ subject }} Learners studying {{ learner }}</h1>
-    <div>
-        {% for response in responses %}
-            <iframe width="560" height="315" src="{{ response }}" frameborder="0" allowfullscreen></iframe>
-            <br><br>
-        {% endfor %}
+    <h1>Video Results</h1>
+    <div class="video-container">
+        {% if responses %}
+            {% for response in responses %}
+                <div class="video-item">
+                    <h2>{{ response['title'] }}</h2>
+                    <p>{{ response['tips'] }}</p>
+                    <iframe width="560" height="315" src="{{ response.video_url }}" frameborder="0" allowfullscreen></iframe>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
     </div>
 </body>
 </html>
