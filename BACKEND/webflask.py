@@ -21,9 +21,10 @@ def search_cafes_in_city(city):
     
     if response.status_code == 200:
         cafes = response.json()['businesses']
-        return [cafe['name'] for cafe in cafes]  
+        return cafes  
     else:
         return None
+
     
     
 def fetch_playlists(category, max_results=10):
