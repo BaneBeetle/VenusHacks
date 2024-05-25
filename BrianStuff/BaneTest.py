@@ -13,7 +13,7 @@ def openai_test():
     client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
     subject = input("Please provide a subject!\n")
-    prompt = f"Please give me some videos to help study {subject}"
+    prompt = f"Please give me some videos links to help study {subject}"
     stream = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": prompt}],
