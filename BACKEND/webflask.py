@@ -98,7 +98,7 @@ def flashcards():
 
 @app.route('/videos')
 def videos():
-    return render_template('videosactual.html')
+    return render_template('videos.html')
 
 
 @app.route('/cafes.html', methods=['GET', 'POST'])    # HELEN NEEDS TO CREATE A CAFES SUBPAGE
@@ -133,14 +133,14 @@ def music():
 
 
 
-@app.route('/videosactual.html', methods=['POST'])
+@app.route('/videos.html', methods=['GET', 'POST'])
 
 def video_results():
     subject = request.form['subject']
     learner = request.form['learner']
     configure_openai()
     responses = get_openai_responses(subject, learner)
-    return render_template('videoresults.html', responses=responses)
+    return render_template('videos.html', responses=responses)
 
 
 
