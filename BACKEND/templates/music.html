@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="author" content="VenusHacks">
+        <meta name="description" content="Music">
+        <link rel="stylesheet" href="music.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+        <title>Videos</title>
+    </head>
+    <body>
+        <!-- Navigation bar -->
+        <div class="navbar">
+            <div class="navbar-buttons">
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="{{ url_for('flashcards') }}">Flashcards</a>
+                <a href="{{ url_for('videos') }}">Videos</a>
+                <a href="{{ url_for('music') }}">Music</a>
+                <a href="{{ url_for('cafes') }}">Cafes</a>
+            </div>
+        </div>
+
+        <!-- Main container -->
+        <div class="container">
+            <div class="center-text">
+                <h1>Search for YouTube Playlists</h1>
+                <form method="post">
+                    <input type="text" name="category" placeholder="Enter music category" required>
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+            
+            <!-- Playlist display section -->
+            <div class="playlist-results">
+                <h2>Playlists:</h2>
+                {% if playlists %}
+                    <ul>
+                    {% for playlist in playlists %}
+                        <li><a href="{{ playlist.url }}" target="_blank">{{ playlist.title }}</a></li>
+                    {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No playlists found. Try a different category!</p>
+                {% endif %}
+            </div>
+        </div>
+
+    </body>
+</html>

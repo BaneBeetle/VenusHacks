@@ -4,8 +4,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="author" content="VenusHacks">
-        <meta name="description" content="Flashcards">
-        <link rel="stylesheet" href="flashcards.css">
+        <meta name="description" content="Videos">
+        <link rel="stylesheet" href="videos.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
         <title>Videos</title>
     </head>
@@ -14,16 +14,17 @@
         <!-- Navigation bar -->
         <div class="navbar">
             <div class="navbar-buttons">
-              <a href="homepage.html">Home</a>
-              <a href="flashcards.html">Flashcards</a>
-              <a href="videos.html">Videos</a>
-              <a href="music.html">Music</a>
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="{{ url_for('flashcards') }}">Flashcards</a>
+                <a href="{{ url_for('videos') }}">Videos</a>
+                <a href="{{ url_for('music') }}">Music</a>
+                <a href="{{ url_for('cafes') }}">Cafes</a>
             </div>
         </div>
         <div class="container">
             <div class="center-text">
-                <h1>Create flashcards</h1>
+                <h1>Watch suggested videos</h1>
             </div>
         </div>
-    </body>
+    </body> 
 </html>

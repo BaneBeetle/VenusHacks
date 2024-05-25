@@ -1,12 +1,61 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Cafes in City</title>
-</head>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="author" content="VenusHacks">
+        <meta name="description" content="Cafe page">
+        <link rel="stylesheet" href="{{ url_for('static', filename='cafes.css') }}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+        <title>Cafes nearby you</title>
+    </head>
 <body>
-    <h1>Search for Cafes in a City</h1>
-    <form method="POST">
-        <label for="city">Enter a city name:</label>
-        <input type="text" id="city" name="city" required>
-        <button type="submit">Search</button>
-    </form>
+    <div class="navbar">
+        <div class="navbar-buttons">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('flashcards') }}">Flashcards</a>
+            <a href="{{ url_for('videos') }}">Videos</a>
+            <a href="{{ url_for('music') }}">Music</a>
+            <a href="{{ url_for('cafes') }}">Cafes</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="center-text">
+            <h1>Cafes nearby you</h1>
+            <h3>Looking for a cafe to hop for your study session? <br> Search here in your city for the best cafe study spots near you!</h3>
+            <label for="city">Enter a city name:</label>
+            <form method="POST">
+                <input type="text" id="city" name="city" class="search-bar" required>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+    <div class="text-block-2">
+        {% if cafes %}
+            <div class="row">
+                {% for cafe in cafes %}
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="position-relative">
+                                    <div class="container">
+                                        <h5 class="card-title">{{ cafe['name'] }}</h5>
+                                        <p class="card-text">{{ cafe['location']['address1'] }}, {{ cafe['location']['city'] }}, {{ cafe['location']['state'] }}, {{ cafe['location']['zip_code'] }}</p>
+                                        <p class="card-text">{{ cafe['display_phone'] }}</p>
+                                        <a href="{{ cafe['url'] }}" target="_blank" class="button">Check it out on Yelp</a>
+                                    </div>
+                                    <div class="container">
+
+                                <img class="card-img-top" src="{{ cafe['image_url'] }}" alt="{{ cafe['name'] }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No results</p>
+        {% endif %}
+    </div>
+</body>
+</html>
