@@ -21,9 +21,10 @@ def search_cafes_in_city(city):
     
     if response.status_code == 200:
         cafes = response.json()['businesses']
-        return [cafe['name'] for cafe in cafes]  
+        return cafes  
     else:
         return None
+
     
     
 def fetch_playlists(category, max_results=10):
@@ -53,35 +54,33 @@ def display_playlists(category):
 
 #FLASK HANDLING
 
-@app.route('/')    #WORKS
-
+@app.route('/')
 def home():
     return render_template('homepage.html')
 
+@app.route('/flashcards')
+def flashcards():
+    return render_template('flashcards.html')
 
-
-@app.route('/homepage.html')     # WORKS (added so that homepage bar redirects to itself)
-
-def homepage():
-    return render_template('homepage.html')
-
+@app.route('/videos')
+def videos():
+    return render_template('videos.html')
 
 
 @app.route('/cafes.html', methods=['GET', 'POST'])    # HELEN NEEDS TO CREATE A CAFES SUBPAGE
 
-def Input_City_Output_Cafes():
+def cafes():
     cafes = None
     if request.method == 'POST':
         city_name = request.form['city']
         cafes = search_cafes_in_city(city_name)
-        return render_template('caferesultpage.html', cafes=cafes)
     return render_template('cafes.html', cafes=cafes)
 
 
 
 @app.route('/music.html', methods=['GET', 'POST'])     # WORKS BUT THERES 2 MUSIC.CSS AND MUSIC.HTML FILES?
 
-def index():
+def music():
     playlists = None
     if request.method == 'POST':
         if 'category' in request.form:
@@ -98,9 +97,5 @@ def index():
     return render_template('music.html', playlists=playlists)
 
 
-
-
-
 if __name__ == '__main__':
     app.run(debug=True)
-

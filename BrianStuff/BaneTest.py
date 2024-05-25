@@ -22,7 +22,7 @@ def openai_test():
     learner = input("What kind of learner are you?\n")
     prompt2 = f"What study tips do you have if I am a {learner} learner?"
     prompts.append(prompt)
-    prompts.append(prompt2)git 
+    prompts.append(prompt2)
 
     responses = []
 
