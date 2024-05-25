@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request
 import requests
+from dotenv import load_dotenv
+import os
+import openai
 
 app = Flask(__name__)
 
@@ -50,6 +53,37 @@ def display_playlists(category):
             print(f'{playlist_title}: {playlist_url}\n')
     else:
         print("No playlists found.")
+        
+        
+load_dotenv()
+
+def configure_openai():
+    OPENAI_API_KEY = os.getenv('api_key')
+    if OPENAI_API_KEY is None:
+        raise ValueError("API Key not found.")
+
+    openai.api_key = OPENAI_API_KEY
+
+def get_openai_responses(subject, learner):
+    prompts = [
+        f"Please give me some videos links to help study {subject}",
+        f"What study tips do you have if I am a {learner} learner?"
+    ]
+
+    responses = []
+
+    for specific_prompt in prompts:
+        response = openai.Completion.create(
+            model="gpt-3.5-turbo",
+            prompt=specific_prompt,
+            max_tokens=150,
+            n=1,
+            stop=None,
+            temperature=0.7
+        )
+        responses.append(response.choices[0].text.strip())
+
+    return responses
 
 
 #FLASK HANDLING
@@ -97,6 +131,18 @@ def music():
     return render_template('music.html', playlists=playlists)
 
 
+
+
+@app.route('/videos.html', methods=['GET', 'POST'])
+
+def video_results():
+    subject = request.form['subject']
+    learner = request.form['learner']
+    configure_openai()
+    responses = get_openai_responses(subject, learner)
+    return render_template('videos.html', responses=responses)
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
-
