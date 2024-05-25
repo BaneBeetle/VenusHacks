@@ -23,11 +23,11 @@ def search_cafes_in_city(city):
         return None
 
 
-#FLASK AREA
+#FLASK HANDLING
 
 @app.route('/', methods=['GET', 'POST'])
 
-def index():
+def Input_City_Output_Cafes():
     cafes = None
     if request.method == 'POST':
         city_name = request.form['city']
