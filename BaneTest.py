@@ -1,5 +1,5 @@
 import openai
-OPENAI_API_KEY = "sk-proj-WfzaTUpb5ZNF5VUHoITVT3BlbkFJoktbge9m0nEcx87zr250"
+OPENAI_API_KEY = "sk-proj-vF71eizLqO5ejFkVrdswT3BlbkFJMjurs7VoSMxsE3BfDf5j"
 openai.api_key = OPENAI_API_KEY
 
 client = openai.OpenAI(api_key=OPENAI_API_KEY)
