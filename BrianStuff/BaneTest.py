@@ -8,6 +8,9 @@ def configure(): # In charge of getting .env from my environment, this contains 
 
 def openai_test():
     OPENAI_API_KEY = os.getenv('api_key') # Grabs the API key and puts it into the variable OPENAI_API_KEY (Has to be named this)
+    if OPENAI_API_KEY is None:
+        raise ValueError("API Key pyPnot found.")
+    
     openai.api_key = OPENAI_API_KEY # Feed it into openai
 
     if not OPENAI_API_KEY:

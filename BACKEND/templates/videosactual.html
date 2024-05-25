@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenAI Chat</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='videos2.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>OpenAI Chat</h1>
+        <form action="/results" method="post">
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" required>
+            <label for="learner">Learner Type:</label>
+            <input type="text" id="learner" name="learner" required>
+            <button type="submit">Get Responses</button>
+        </form>
+    </div>
+</body>
+</html>
