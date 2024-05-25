@@ -92,10 +92,12 @@ def openai_test(subject, learner):
         )
 
         for chunk in stream:
+            # print(chunk, 'df')
             if chunk.choices[0].delta.content is not None:
                 string += chunk.choices[0].delta.content
             else:
                 responses.append(string.split("\n"))
+                print('LIKE ARE EWR EVEN HERE???')
                 string = ""
 
     return responses
@@ -149,12 +151,14 @@ def music():
 
 
 
-@app.route('/videosactual.html', methods=['POST'])
+@app.route('/video-submit', methods=['POST'])
 def videoresult():
+    print(request)
     subject = request.form['subject']
     learner = request.form['learner']
     
     responses = openai_test(subject, learner)
+    print('LALALALALLALAA', responses)
     return render_template('videoresults.html', responses=responses)
 
 

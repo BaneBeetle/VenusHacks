@@ -7,17 +7,16 @@
 </head>
 <body>
     <h1>Video Results</h1>
-    <div class="video-container">
+    <div class="video-container">responses
         {% if responses %}
             {% for response in responses %}
-                <div class="video-item">
-                    <h2>{{ response['title'] }}</h2>
-                    <p>{{ response['tips'] }}</p>
-                    <iframe width="560" height="315" src="{{ response.video_url }}" frameborder="0" allowfullscreen></iframe>
-                </div>
+                {% for title in response %}
+                <br />
+                    {{ title }}
+                    <br />
+
+                {% endfor %}
             {% endfor %}
-        {% else %}
-            <p>No results found.</p>
         {% endif %}
     </div>
 </body>
