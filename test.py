@@ -1,1 +1,0 @@
-print("Fact or cap????")
