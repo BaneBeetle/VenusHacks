@@ -7,7 +7,7 @@
         <meta name="description" content="Flashcards">
         <link rel="stylesheet" href="{{ url_for('static', filename='flashcards.css') }}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
-        <title>Flashcards</title>
+        <title>Videos</title>
     </head>
 
     <body>
@@ -16,7 +16,6 @@
             <div class="navbar-buttons">
                 <a href="{{ url_for('home') }}">Home</a>
                 <a href="{{ url_for('flashcards') }}">Flashcards</a>
-                <a href="{{ url_for('home') }}">To-Do Planner</a>
                 <a href="{{ url_for('videos') }}">Videos</a>
                 <a href="{{ url_for('music') }}">Music</a>
                 <a href="{{ url_for('cafes') }}">Cafes</a>
@@ -29,7 +28,7 @@
         </div>
         <div class="container">
             <div class="center-text">
-                <form method="post" class="search-form">
+                <form method="POST" class="search-form">
                     <label for="category">Enter a Subject:</label>
                     <input type="text" id="category" name="category" required>
                     <button type="submit">Search</button>
@@ -37,67 +36,20 @@
             </div>
         </div>
         <div class="flashcards-container">
-            <div class="flashcard">
-                <div class="flashcard-inner">
-                    <div class="flashcard-front">
-                        <p>Question: What is the capital of France?</p>
+            {% if flashcards %}
+                {% for flash in flashcards %}
+                    <div class="flashcard">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <p>{{ flash['Question']}}</p>
+                            </div>
+                            <div class="flashcard-back">
+                                <p>{{ flash['Answer'] }}</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flashcard-back">
-                        <p>Answer: Paris</p>
-                    </div>
-                </div>
-            </div>
-            <div class="flashcard">
-                <div class="flashcard-inner">
-                    <div class="flashcard-front">
-                        <p>Question: What is the capital of France?</p>
-                    </div>
-                    <div class="flashcard-back">
-                        <p>Answer: Paris</p>
-                    </div>
-                </div>
-            </div>
-            <div class="flashcard">
-                <div class="flashcard-inner">
-                    <div class="flashcard-front">
-                        <p>Question: What is the capital of France?</p>
-                    </div>
-                    <div class="flashcard-back">
-                        <p>Answer: Paris</p>
-                    </div>
-                </div>
-            </div>
-            <div class="flashcard">
-                <div class="flashcard-inner">
-                    <div class="flashcard-front">
-                        <p>Question: What is the capital of France?</p>
-                    </div>
-                    <div class="flashcard-back">
-                        <p>Answer: Paris</p>
-                    </div>
-                </div>
-            </div>
-            <div class="flashcard">
-                <div class="flashcard-inner">
-                    <div class="flashcard-front">
-                        <p>Question: What is the capital of France?</p>
-                    </div>
-                    <div class="flashcard-back">
-                        <p>Answer: Paris</p>
-                    </div>
-                </div>
-            </div>
-            <div class="flashcard">
-                <div class="flashcard-inner">
-                    <div class="flashcard-front">
-                        <p>Question: What is the capital of France?</p>
-                    </div>
-                    <div class="flashcard-back">
-                        <p>Answer: Paris</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Add more flashcards as needed -->
+                {% endfor %}
+            {% endif %}
         </div>
     </body>
     <script src="{{ url_for('static', filename='flashcards.js') }}"></script>
