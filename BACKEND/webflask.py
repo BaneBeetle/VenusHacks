@@ -1,3 +1,5 @@
+# WEBFLASK
+
 import json
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 import requests
@@ -120,6 +122,18 @@ def openai_test(subject):
 def home():
     return render_template('homepage.html')
 
+@app.route('/todo', methods=['GET', 'POST'])
+def todo():
+    if 'tasks' not in session:
+        session['tasks'] = []
+
+    if request.method == 'POST':
+        task_content = request.form['task']
+        session['tasks'].append(task_content)
+        session.modified = True  # Mark the session as modified after appending a task
+
+    return render_template('todo.html', tasks=session['tasks'])
+
 @app.route('/cafes.html', methods=['GET', 'POST'])    # HELEN NEEDS TO CREATE A CAFES SUBPAGE
 
 def cafes():
@@ -131,32 +145,19 @@ def cafes():
 
 
 @app.route('/music', methods=['GET', 'POST'])
-def musicresp():
-    if request.method == 'POST':
-        parts = []
-        category = request.form['category']
-        responses = openai_music_test(category)
-        processed_responses = []
-        for response_split in responses:
-            print("response_split: ", response_split)
-            for response in response_split:
-                print("response: ", response)
-                if " -" in response:
-                    parts = response.split(" -")
-                elif ":" in response:
-                    parts = response.split(":")
-                if len(parts) > 0:
-                    print("parts: ", parts)
-                    title = parts[0].strip().split(' ', 1)[1]  # remove the numbering
-                    url = parts[1].strip()
-                    processed_responses.append({'title': title, 'url': url})
-                    print("results: ", processed_responses)
-        return render_template('music.html', responses=processed_responses)
+def music():
+    if request.method == "POST":
+        print(request)
+        subject = request.form['category']
+        youtube_videos = youtube_test(subject) 
+        print("youtube: ", youtube_videos)
+        return render_template('music.html', youtube_videos=youtube_videos)
     return render_template('music.html')
 
 
+
 @app.route('/videos', methods=['GET', 'POST'])
-def videossubmit():
+def videos():
     if request.method == "POST":
         print(request)
         learner = request.form['learner']
@@ -233,7 +234,7 @@ def youtube_test(subject):
     request = youtube.search().list(
         part='snippet',
         q=subject,
-        maxResults=1,
+        maxResults=3,
         order="relevance",
         type="video"
     )
