@@ -196,7 +196,7 @@ def generate_tips(learner, subject): # Will return a list of tips
             string = ""
     return responses
 
-def generate_flashcards(subject): # Will return a string formatted in JSON
+def generate_flashcards(subject, number): # Will return a string formatted in JSON
     configure()
     OPENAI_API_KEY = os.getenv('api_key') # Grabs the API key and puts it into the variable OPENAI_API_KEY (Has to be named this)
     openai.api_key = OPENAI_API_KEY # Feed it into openai
@@ -206,7 +206,7 @@ def generate_flashcards(subject): # Will return a string formatted in JSON
 
     client = openai.OpenAI(api_key=OPENAI_API_KEY) # Create a client, passing in the API key
 
-    prompt = f"Generate 12 questions and answers on the subject {subject} as a JSON object with the keys Question, Answer."
+    prompt = f"Generate {int(number)} questions and answers on the subject {subject} as a JSON object with the keys Question, Answer."
 
     string = ""
     stream = client.chat.completions.create(
@@ -222,7 +222,7 @@ def generate_flashcards(subject): # Will return a string formatted in JSON
             return string
     return string
 
-def youtube_test(subject):
+def youtube_test(subject, number):
     configure()
     api_service_name = "youtube"
     api_version = "v3"
@@ -234,7 +234,7 @@ def youtube_test(subject):
     request = youtube.search().list(
         part='snippet',
         q=subject,
-        maxResults=3,
+        maxResults=int(number),
         order="relevance",
         type="video"
     )
@@ -254,7 +254,10 @@ def youtube_test(subject):
 def flashcards():
     if request.method == 'POST':
         subject = request.form['category']
-        flashcards_json = generate_flashcards(subject)
+        learner = request.form['learner']
+        
+        flashcards_json = generate_flashcards(subject, learner)
+
         print("flashcards: ")
         print(flashcards_json)
         flashcards = parse_flashcards(flashcards_json)  # Parse JSON string to extract questions and answers
