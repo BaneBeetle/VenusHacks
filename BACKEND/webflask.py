@@ -1,9 +1,9 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 import requests
+import googleapiclient.discovery
 from dotenv import load_dotenv
 import os
 import openai
-
 
 app = Flask(__name__)
 
@@ -66,7 +66,6 @@ def openai_music_test(category):
                 string += chunk.choices[0].delta.content
             else:
                 responses.append(string.split("\n"))
-                print('LIKE ARE EWR EVEN HERE???')
                 string = ""
 
     return responses    
@@ -190,10 +189,10 @@ def youtube_test(subject):
         return_list.append([items['snippet']['title'], items['id']['videoId'], link, items['snippet']['thumbnails']['high']['url']])
 
     return return_list
-
-
-
 #FLASK HANDLING
+
+
+app = Flask(__name__)
 
 @app.route('/')
 def home():
@@ -203,8 +202,21 @@ def home():
 def flashcards():
     return render_template('flashcards.html')
 
-@app.route('/cafes.html', methods=['GET', 'POST'])    # HELEN NEEDS TO CREATE A CAFES SUBPAGE
+@app.route('/videos')
+def videos():
+    return render_template('videos.html')
 
+@app.route('/music')
+def music():
+    return render_template('music.html')
+
+
+@app.route('/todo')
+def todo():
+    return render_template('todo.html')
+
+
+@app.route('/cafes', methods=['GET', 'POST'])    # HELEN NEEDS TO CREATE A CAFES SUBPAGE
 def cafes():
     cafes = None
     if request.method == 'POST':
@@ -238,6 +250,31 @@ def music():
     return render_template('music.html')
 
 
+# @app.route('/music.html', methods=['GET', 'POST'])    
+# def music():
+#     playlists = None
+#     if request.method == 'POST':
+#         if 'category' in request.form:
+#             category = request.form['category']
+#             playlists_json = fetch_playlists(category)
+#             playlists = []
+#             if 'items' in playlists_json:
+#                 for item in playlists_json['items']:
+#                     playlist_title = item['snippet']['title']
+#                     playlist_id = item['id']['playlistId']
+#                     playlist_url = f'https://www.youtube.com/playlist?list={playlist_id}'
+#                     playlists.append({'title': playlist_title, 'url': playlist_url})
+
+#     return render_template('music.html', playlists=playlists)
+
+
+@app.route('/musicResults.html', methods=['GET', 'POST'])    
+def musicResult():
+    print(request)
+    category = request.form['category']
+    responses = openai_music_test(category)
+    return render_template('musicResults.html', responses=responses)
+
 @app.route('/video-submit', methods=['POST'])
 def videos():
     number = 0
@@ -259,6 +296,21 @@ def videos():
                     processed_responses.append({'title': title, 'url': url})
                     print("results: ", processed_responses)
     return render_template('videos.html', responses=processed_responses)
+
+
+app.secret_key = 'your_secret_key'
+@app.route('/todo', methods=['GET', 'POST'])
+def todotask():
+    if 'tasks' not in session:
+        session['tasks'] = []
+
+    if request.method == 'POST':
+        task_content = request.form['task']
+        session['tasks'].append(task_content)
+
+    return render_template('todo.html', tasks=session['tasks'])
+
+
 
 
 if __name__ == '__main__':

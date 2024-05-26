@@ -12,7 +12,8 @@
     <div class="navbar">
         <div class="navbar-buttons">
             <a href="{{ url_for('home') }}">Home</a>
-            <a href="{{ url_for('flashcards') }}">Flashcards</a>
+            <a href="{{ url_for('home') }}">Flashcards</a>
+            <a href="{{ url_for('flashcards') }}">To-Do Planner</a>
             <a href="{{ url_for('videos') }}">Videos</a>
             <a href="{{ url_for('music') }}">Music</a>
             <a href="{{ url_for('cafes') }}">Cafes</a>
@@ -20,8 +21,8 @@
     </div>
     <div class="container">
         <div class="center-text">
-            <h1>Cafes nearby you</h1>
-            <h3>Looking for a cafe to hop for your study session? <br> Search here in your city for the best cafe study spots near you!</h3>
+            <h1>Cafes Nearby You</h1>
+            <h3>Looking for a cafe to hop to for your study session? <br> Search here in your city for the best cafe study spots near you!</h3>
             <label for="city">Enter a city name:</label>
             <form method="POST">
                 <input type="text" id="city" name="city" class="search-bar" required>
