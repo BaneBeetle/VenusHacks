@@ -1,3 +1,4 @@
+import json
 from flask import Flask, render_template, request, jsonify
 import requests
 from dotenv import load_dotenv
@@ -71,7 +72,7 @@ def openai_music_test(category):
 
     return responses    
 
-def openai_test(subject, learner):
+def openai_test(subject):
     OPENAI_API_KEY = os.getenv('api_key')
     if OPENAI_API_KEY is None:
         raise ValueError("API Key not found.")
@@ -86,9 +87,7 @@ def openai_test(subject, learner):
     prompts = [] 
 
     prompt = f"Please give me some videos links to help study {subject}" 
-    prompt2 = f"What study tips do you have if I am a {learner} learner?"
     prompts.append(prompt)
-    prompts.append(prompt2)
 
     responses = []
 
@@ -120,10 +119,6 @@ def openai_test(subject, learner):
 def home():
     return render_template('homepage.html')
 
-@app.route('/flashcards')
-def flashcards():
-    return render_template('flashcards.html')
-
 @app.route('/cafes.html', methods=['GET', 'POST'])    # HELEN NEEDS TO CREATE A CAFES SUBPAGE
 
 def cafes():
@@ -137,22 +132,147 @@ def cafes():
 @app.route('/music', methods=['GET', 'POST'])
 def music():
     if request.method == 'POST':
+        parts = []
         category = request.form['category']
         responses = openai_music_test(category)
-        return render_template('music.html', responses=responses)
+        processed_responses = []
+        for response_split in responses:
+            print("response_split: ", response_split)
+            for response in response_split:
+                print("response: ", response)
+                if " -" in response:
+                    parts = response.split(" -")
+                elif ":" in response:
+                    parts = response.split(":")
+                if len(parts) > 0:
+                    print("parts: ", parts)
+                    title = parts[0].strip().split(' ', 1)[1]  # remove the numbering
+                    url = parts[1].strip()
+                    processed_responses.append({'title': title, 'url': url})
+                    print("results: ", processed_responses)
+        return render_template('music.html', responses=processed_responses)
     return render_template('music.html')
 
 
-@app.route('/videos', methods=['POST'])
+@app.route('/videos', methods=['GET', 'POST'])
 def videos():
-    print(request)
-    subject = request.form['subject']
-    learner = request.form['learner']
+    if request.method == "POST":
+        print(request)
+        learner = request.form['learner']
+        subject = request.form['subject']
+        
+        responses = generate_tips(learner, subject)
+        return render_template('videos.html', responses=responses)
+    return render_template('videos.html')
+
+def generate_tips(learner, subject): # Will return a list of tips
+    configure()
+    OPENAI_API_KEY = os.getenv('api_key') # Grabs the API key and puts it into the variable OPENAI_API_KEY (Has to be named this)
+    openai.api_key = OPENAI_API_KEY # Feed it into openai
+
+    if not OPENAI_API_KEY:
+        raise ValueError("API Key not found. Please set the 'api_key' environment variable in your .env file.")
+
+    client = openai.OpenAI(api_key=OPENAI_API_KEY) # Create a client, passing in the API key
+    learn_prompt = f"What study tips do you have for {subject} if I am a {learner} learner?"
+
+    responses = []
+    string = ""
+    stream = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": learn_prompt}],
+        stream=True,
+    )
+
+    for chunk in stream:
+        if chunk.choices[0].delta.content is not None:
+            string += chunk.choices[0].delta.content
+        else:
+            responses = string.split("\n")
+            string = ""
+    return responses
+
+def generate_flashcards(subject): # Will return a string formatted in JSON
+    configure()
+    OPENAI_API_KEY = os.getenv('api_key') # Grabs the API key and puts it into the variable OPENAI_API_KEY (Has to be named this)
+    openai.api_key = OPENAI_API_KEY # Feed it into openai
+
+    if not OPENAI_API_KEY:
+        raise ValueError("API Key not found. Please set the 'api_key' environment variable in your .env file.")
+
+    client = openai.OpenAI(api_key=OPENAI_API_KEY) # Create a client, passing in the API key
+
+    prompt = f"Generate 12 questions and answers on the subject {subject} as a JSON object with the keys Question, Answer."
+
+    string = ""
+    stream = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": prompt}],
+        stream=True,
+    )
+
+    for chunk in stream:
+        if chunk.choices[0].delta.content is not None:
+            string += chunk.choices[0].delta.content
+        else:
+            return string
+    return string
+def youtube_test(subject):
+    configure()
+    api_service_name = "youtube"
+    api_version = "v3"
+    DEVELOPER_KEY = os.getenv('YOUTUBE_KEY')
+
+    return_list = []
+
+    youtube = googleapiclient.discovery.build(api_service_name, api_version, developerKey=DEVELOPER_KEY)
+    request = youtube.search().list(
+        part='snippet',
+        q=subject,
+        maxResults=1,
+        order="relevance",
+        type="video"
+    )
+    return_value = request.execute()
     
-    responses = openai_test(subject, learner)
-    return render_template('videos.html', responses=responses)
+    for items in return_value['items']:
+        #print(items['snippet']['title'])
+        x = items['id']['videoId']
+        link = f"https://www.youtube.com/watch?v={x}"
+        #print(link)
 
+        return_list.append([items['snippet']['title'], items['id']['videoId'], link, items['snippet']['thumbnails']['high']['url']])
 
+    return return_list
+
+@app.route('/flashcards', methods=['GET', 'POST'])
+def flashcards():
+    if request.method == 'POST':
+        subject = request.form['category']
+        flashcards_json = generate_flashcards(subject)
+        print("flashcards: ")
+        print(flashcards_json)
+        flashcards = parse_flashcards(flashcards_json)  # Parse JSON string to extract questions and answers
+        return render_template('flashcards.html', flashcards=flashcards)
+    return render_template('flashcards.html')
+
+def parse_flashcards(flashcards_json):
+    # Assuming flashcardsJson contains the JSON string
+    flashcards_data = json.loads(flashcards_json)
+    processed_responses = []
+    # Now you can access the questions list
+    questions = flashcards_data['questions']
+
+    # Iterate over the questions list
+    for question_obj in questions:
+        question = question_obj['Question']
+        answer = question_obj['Answer']
+        processed_responses.append({'Question': question, 'Answer': answer})
+        # Do something with the question and answer
+        print("Question:", question)
+        print("Answer:", answer)
+    print("results: ", processed_responses)
+    return processed_responses
 
 if __name__ == '__main__':
     app.run(debug=True)

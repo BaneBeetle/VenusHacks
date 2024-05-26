@@ -22,35 +22,31 @@
         <div class="center-text">
             <h1>Cafes nearby you</h1>
             <h3>Looking for a cafe to hop for your study session? <br> Search here in your city for the best cafe study spots near you!</h3>
-            <label for="city">Enter a city name:</label>
-            <form method="POST">
-                <input type="text" id="city" name="city" class="search-bar" required>
+            <form method="POST" class="search-form">
+                <label for="city">Enter a city name:</label>
+                <input type="text" id="city" name="city" required>
                 <button type="submit">Search</button>
             </form>
         </div>
     </div>
     <div class="text-block-2">
         {% if cafes %}
-            <div class="row">
-                {% for cafe in cafes %}
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="position-relative">
-                                    <div class="container">
-                                        <h5 class="card-title">{{ cafe['name'] }}</h5>
-                                        <p class="card-text">{{ cafe['location']['address1'] }}, {{ cafe['location']['city'] }}, {{ cafe['location']['state'] }}, {{ cafe['location']['zip_code'] }}</p>
-                                        <p class="card-text">{{ cafe['display_phone'] }}</p>
-                                        <a href="{{ cafe['url'] }}" target="_blank" class="button">Check it out on Yelp</a>
-                                    </div>
-                                    <div class="container">
-
-                                <img class="card-img-top" src="{{ cafe['image_url'] }}" alt="{{ cafe['name'] }}">
-                                    </div>
-                                </div>
+            {% for cafe in cafes %}
+                <div class="card">
+                    <div class="card-body">
+                        <div class="position-relative">
+                            <div class="container">
+                                <h5 class="card-title">{{ cafe['name'] }}</h5>
+                                <p class="card-text">{{ cafe['location']['address1'] }}, {{ cafe['location']['city'] }}, {{ cafe['location']['state'] }}, {{ cafe['location']['zip_code'] }}</p>
+                                <p class="card-text">{{ cafe['display_phone'] }}</p>
+                                <a href="{{ cafe['url'] }}" target="_blank" class="button">Check it out on Yelp</a>
+                            </div>
+                            <div class="container">
+                            <img class="card-img-top" src="{{ cafe['image_url'] }}" alt="{{ cafe['name'] }}">
                             </div>
                         </div>
                     </div>
+                </div>
                 {% endfor %}
             </div>
         {% else %}

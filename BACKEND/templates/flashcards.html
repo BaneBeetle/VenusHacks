@@ -24,8 +24,34 @@
         </div>
         <div class="container">
             <div class="center-text">
-                <h1>Create flashcards</h1>
+                <h1>Create Flashcards</h1>
             </div>
         </div>
+        <div class="container">
+            <div class="center-text">
+                <form method="POST" class="search-form">
+                    <label for="category">Enter a Subject:</label>
+                    <input type="text" id="category" name="category" required>
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class="flashcards-container">
+            {% if flashcards %}
+                {% for flash in flashcards %}
+                    <div class="flashcard">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <p>{{ flash['Question']}}</p>
+                            </div>
+                            <div class="flashcard-back">
+                                <p>{{ flash['Answer'] }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
     </body>
+    <script src="{{ url_for('static', filename='flashcards.js') }}"></script>
 </html>

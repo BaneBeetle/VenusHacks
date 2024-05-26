@@ -23,24 +23,43 @@
         </div>
         <div class="container">
             <div class="center-text">
-                <h1>Watch suggested videos</h1>
+                <h1>Help me study!</h1>
             </div>
         </div>
         <div class="container">
             <div class="center-text">
-                <form action="/video-submit" method="POST" class="search-form">
+                <form method="POST" action="/videos" class="search-form">
                     <label for="subject">Subject:</label>
                     <input type="text" id="subject" name="subject" required>
                     <label for="learner"><br>Learner Type:</label>
-                    <input type="text" id="learner" name="learner" required>
+                    <select id="learning_menu" name="learner">
+                        <option value="visual">Visual</option>
+                        <option value="auditory">Auditory</option>
+                        <option value="read/write">Read/Write</option>
+                        <option value="kinesthetic">Kinesthetic</option>
+                    </select>
                     <button type="submit">Get Responses</button>
                 </form>                
             </div>
-        </div>
+        </div>        
         <div class="text-block-2">
-            {% for response in responses %}
-            <div class="response">{{ response }}</div>
-            {% endfor %}
+            {% if responses %}
+                <div class="card-container"> <!-- Add a container for the cards -->
+                    {% for response in responses %}
+                        {% if response.strip() %}  <!-- Check if response is not empty or only whitespace -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="position-relative">
+                                        <p class="card-text">{{ response }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No results</p>
+            {% endif %}
         </div>
     </body> 
 </html>

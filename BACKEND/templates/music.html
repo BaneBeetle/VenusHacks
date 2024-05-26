@@ -21,6 +21,41 @@
         </div>
     </div>
 
+    <div class="container">
+        <div class="center-text">
+            <h1>Search for music!</h1>
+            <form method="POST" class="search-form">
+                <label for="category">Music Category:</label>
+                <input type="text" id="category" name="category" required>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Playlist display section -->
+    <div class="text-block-2">
+        <div class="playlist-container">
+            {% if responses %}
+                {% for response in responses %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="position-relative">
+                                <div class="container">
+                                    <h2> {{response['title']}} </h2>
+                                    <a href="{{ response['url'] }}" target="_blank" class="button">Give a listen</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <h1>No results</h1>
+            {% endif %}
+        </div>
+    </div>
+</body>
     <!-- Main container -->
     <div class="container">
         <div class="center-text">
