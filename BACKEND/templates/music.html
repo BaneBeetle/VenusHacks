@@ -22,12 +22,11 @@
         </div>
     </div>
 
-    <!-- Main container -->
     <div class="container">
         <div class="center-text">
-            <h1>Search For Your Favorite Study-Music Genre</h1>
-            <form method="post" class="search-form" action="{{ url_for('music') }}">
-                <label for="category">Category:</label>
+            <h1>Search for music!</h1>
+            <form method="POST" class="search-form">
+                <label for="category">Music Category:</label>
                 <input type="text" id="category" name="category" required>
                 <button type="submit">Search</button>
             </form>
@@ -57,5 +56,31 @@
             {% endif %}
         </div>
     </div>
+</body>
+    <!-- Main container -->
+    <div class="container">
+        <div class="center-text">
+            <h1>Search For Your Favorite Study-Music Genre</h1>
+            <form method="post" class="search-form" action="{{ url_for('music') }}">
+                <label for="category">Category:</label>
+                <input type="text" id="category" name="category" required>
+                <button id='category'type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Playlist display section -->
+    <div class="text-block-2">
+        <div class="playlist-container" id="musicForm">
+            {% if responses %}
+                {% for response in responses %}
+                    <div>{{ response }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div id="display"></div>
+    </div>
+
+    <div id="musicForm"></div>
 </body>
 </html>

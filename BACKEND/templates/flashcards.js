@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', function() {
     // Retrieve the form element by its ID
     const formElement = document.getElementById('musicForm');
@@ -38,5 +36,3 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log("No element with ID 'musicForm' found");
     }
 });
-
-
