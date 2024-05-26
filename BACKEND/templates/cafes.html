@@ -1,3 +1,5 @@
+<!-- Cafes html -->
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -40,6 +42,7 @@
                                 <p class="card-text">{{ cafe['location']['address1'] }}, {{ cafe['location']['city'] }}, {{ cafe['location']['state'] }}, {{ cafe['location']['zip_code'] }}</p>
                                 <p class="card-text">{{ cafe['display_phone'] }}</p>
                                 <a href="{{ cafe['url'] }}" target="_blank" class="button">Check it out on Yelp</a>
+                                <iframe src="https://www.youtube.com/embed/{{ video[1] }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             </div>
                             <div class="container">
                             <img class="card-img-top" src="{{ cafe['image_url'] }}" alt="{{ cafe['name'] }}">

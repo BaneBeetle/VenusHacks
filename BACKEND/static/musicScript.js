@@ -3,7 +3,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Retrieve the form element by its ID
     const formElement = document.getElementById('musicForm');
-    const categoryButton = document.getElementById('category');
+    // const categoryButton = document.getElementById('category');
 
     // Setting an item
     localStorage.setItem('testKey', 'testValue');

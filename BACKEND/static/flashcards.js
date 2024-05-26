@@ -1,4 +1,5 @@
-// static/scripts.js
+// static/flashcards.js
+
 document.querySelectorAll('.flashcard').forEach(card => {
     card.addEventListener('click', () => {
         card.classList.toggle('is-flipped');

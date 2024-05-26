@@ -1,9 +1,10 @@
 import json
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 import requests
 from dotenv import load_dotenv
 import os
 import openai
+import googleapiclient.discovery
 
 
 app = Flask(__name__)
@@ -162,7 +163,9 @@ def videos():
         subject = request.form['subject']
         
         responses = generate_tips(learner, subject)
-        return render_template('videos.html', responses=responses)
+        youtube_videos = youtube_test(subject)
+        print("youtube: ", youtube_videos)
+        return render_template('videos.html', responses=responses, youtube_videos=youtube_videos)
     return render_template('videos.html')
 
 def generate_tips(learner, subject): # Will return a list of tips
@@ -217,6 +220,7 @@ def generate_flashcards(subject): # Will return a string formatted in JSON
         else:
             return string
     return string
+
 def youtube_test(subject):
     configure()
     api_service_name = "youtube"
