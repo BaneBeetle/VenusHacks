@@ -3,11 +3,9 @@ import requests
 from dotenv import load_dotenv
 import os
 import openai
-from flask_sqlalchemy import SQLAlchemy 
-from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required
-from werkzeug.security import generate_password_hash, check_password_hash
 
 
+app = Flask(__name__)
 
 
 YELP_API_KEY = 'hYkh7Y38ofnKkkZCLXNoSzo9btQj7eYM7v0hbAyQ0gWSPvm236SOY1RB9oaPg5x1OA8dozm2tICepSMNZpd4XLXUiXyu2HTUa8dOEOJdQ8C8wNeRd1e-cvh35mxRZnYx'
@@ -30,34 +28,7 @@ def search_cafes_in_city(city):
         return cafes  
     else:
         return None
-
     
-    
-# def fetch_playlists(category, max_results=10):
-#     params = {
-#         'part': 'snippet',
-#         'q': category,
-#         'type': 'playlist',
-#         'maxResults': max_results,
-#         'key': YOUTUBE_API_KEY
-#     }
-#     response = requests.get(BASE_URL, params=params)
-#     playlists = response.json()
-#     return playlists
-
-
-# def display_playlists(category):
-#     playlists = fetch_playlists(category)
-#     if 'items' in playlists:
-#         for item in playlists['items']:
-#             playlist_title = item['snippet']['title']
-#             playlist_id = item['id']['playlistId']
-#             playlist_url = f'https://www.youtube.com/playlist?list={playlist_id}'
-#             print(f'{playlist_title}: {playlist_url}\n')
-#     else:
-#         print("No playlists found.") 
-
-
 
 def configure(): 
     load_dotenv()
@@ -135,6 +106,7 @@ def openai_test(subject, learner):
                 string += chunk.choices[0].delta.content
             else:
                 responses.append(string.split("\n"))
+                print('LIKE ARE EWR EVEN HERE???')
                 string = ""
 
     return responses
@@ -144,9 +116,6 @@ def openai_test(subject, learner):
 
 #FLASK HANDLING
 
-
- 
-
 @app.route('/')
 def home():
     return render_template('homepage.html')
@@ -154,15 +123,6 @@ def home():
 @app.route('/flashcards')
 def flashcards():
     return render_template('flashcards.html')
-
-@app.route('/videos')
-def videos():
-    return render_template('videos.html')
-
-@app.route('/music')
-def music():
-    return render_template('music.html')
-
 
 @app.route('/cafes.html', methods=['GET', 'POST'])    # HELEN NEEDS TO CREATE A CAFES SUBPAGE
 
@@ -174,40 +134,23 @@ def cafes():
     return render_template('cafes.html', cafes=cafes)
 
 
-
-# @app.route('/music.html', methods=['GET', 'POST'])    
-# def music():
-#     playlists = None
-#     if request.method == 'POST':
-#         if 'category' in request.form:
-#             category = request.form['category']
-#             playlists_json = fetch_playlists(category)
-#             playlists = []
-#             if 'items' in playlists_json:
-#                 for item in playlists_json['items']:
-#                     playlist_title = item['snippet']['title']
-#                     playlist_id = item['id']['playlistId']
-#                     playlist_url = f'https://www.youtube.com/playlist?list={playlist_id}'
-#                     playlists.append({'title': playlist_title, 'url': playlist_url})
-
-#     return render_template('music.html', playlists=playlists)
+@app.route('/music', methods=['GET', 'POST'])
+def music():
+    if request.method == 'POST':
+        category = request.form['category']
+        responses = openai_music_test(category)
+        return render_template('music.html', responses=responses)
+    return render_template('music.html')
 
 
-@app.route('/musicResults.html', methods=['GET', 'POST'])    
-def musicResult():
-    print(request)
-    category = request.form['category']
-    responses = openai_music_test(category)
-    return render_template('musicResults.html', responses=responses)
-
-@app.route('/video-submit', methods=['POST'])
-def videoresult():
+@app.route('/videos', methods=['POST'])
+def videos():
     print(request)
     subject = request.form['subject']
     learner = request.form['learner']
     
     responses = openai_test(subject, learner)
-    return render_template('videoresults.html', responses=responses)
+    return render_template('videos.html', responses=responses)
 
 
 
