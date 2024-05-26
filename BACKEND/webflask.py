@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 import requests
 from dotenv import load_dotenv
 import os
@@ -91,7 +91,6 @@ def openai_music_test(category):
                 string += chunk.choices[0].delta.content
             else:
                 responses.append(string.split("\n"))
-                print('LIKE ARE EWR EVEN HERE???')
                 string = ""
 
     return responses    
@@ -137,7 +136,6 @@ def openai_test(subject, learner):
 
 
 
-
 #FLASK HANDLING
 
 
@@ -160,14 +158,19 @@ def music():
     return render_template('music.html')
 
 
-@app.route('/cafes.html', methods=['GET', 'POST'])    # HELEN NEEDS TO CREATE A CAFES SUBPAGE
+@app.route('/todo')
+def todo():
+    return render_template('todo.html')
 
+
+@app.route('/cafes', methods=['GET', 'POST'])    # HELEN NEEDS TO CREATE A CAFES SUBPAGE
 def cafes():
     cafes = None
     if request.method == 'POST':
         city_name = request.form['city']
         cafes = search_cafes_in_city(city_name)
     return render_template('cafes.html', cafes=cafes)
+
 
 
 
@@ -204,6 +207,21 @@ def videoresult():
     
     responses = openai_test(subject, learner)
     return render_template('videoresults.html', responses=responses)
+
+
+
+app.secret_key = 'your_secret_key'
+@app.route('/todo', methods=['GET', 'POST'])
+def todotask():
+    if 'tasks' not in session:
+        session['tasks'] = []
+
+    if request.method == 'POST':
+        task_content = request.form['task']
+        session['tasks'].append(task_content)
+
+    return render_template('todo.html', tasks=session['tasks'])
+
 
 
 
