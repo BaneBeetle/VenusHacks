@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='todo.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
     <title>To-Do Planner</title>
-    <script src="/static/todo.js"></script>
 </head>
 <body>
 
@@ -23,13 +22,13 @@
 </div>
 
 <h1>Todo Planner</h1>
-<form action="/todo" method="POST" id="todoForm">
-    <label for="taskInput">Task:</label>
-    <input type="text" id="taskInput" name="task">
+<form action="/todo" method="POST">
+    <label for="task">Enter a task:</label>
+    <input type="text" id="task" name="task" required>
     <button type="submit">Add Task</button>
 </form>
 
-<ul id="taskList">
+<ul>
     {% for task in tasks %}
     <li>
         <input type="checkbox" 
