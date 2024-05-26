@@ -7,7 +7,7 @@
         <meta name="description" content="Homepage">
         <link rel="stylesheet" href="{{ url_for('static', filename='homepage.css') }}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
-        <title>Home Page</title>
+        <title>Home</title>
     </head>
 
     <body>
@@ -15,7 +15,7 @@
         <div class="navbar">
             <div class="navbar-buttons">
                 <a href="{{ url_for('home') }}">Home</a>
-                <a href="{{ url_for('flashcards') }}">Flashcards</a>
+                <a href="{{ url_for('flashcards') }}">Notes Center</a>
                 <a href="{{ url_for('videos') }}">Videos</a>
                 <a href="{{ url_for('music') }}">Music</a>
                 <a href="{{ url_for('cafes') }}">Cafes</a>
@@ -25,26 +25,31 @@
             <div class="center-text">
                 <h1>ZotStudy</h1>
                 <button class="my-button">Get Started</button>
-                <p>We provide you the services of creating a self-study atmosphere with our generated flashcards catered to your subject, relaxing music playlists, and Youtube video suggestions!</p>
+                <p>Amplify your self-studying session with Mocha Mind: a toolkit that promotes healthy and positive study culture.</p>
             </div>
         </div>
         <div class="position-relative">
             <div class="text-block-2">
-                <h2>Create Flashcards and more!</h2>
-                <h3>Using information and notes about your subject you want to study for, we can generate flashcards for you!</h3>
+                <h2>Begin a To-Do List and Goal-Tracker</h2>
+                <h3>Jot down your to-do list for the day here, as well as your long-term goals to be positively mindful and affirmative. </h3>
             </div>
         </div>
         <div class="position-relative">
             <div class="text-block-2">
-                <h2>YouTube video suggestions</h2>
-                <h3>We will provide you YouTube video suggestions to help enhance your learning and studying session!</h3>
+                <h2>YouTube Video Suggestions</h2>
+                <h3>Need a course material review? Insert your course title or information and take notes on the suggested educational videos.</h3>
             </div>
         </div>
         <div class="position-relative">
             <div class="text-block-2">
-                <h2>Listen to relaxing music/asmr</h2>
-                <h3>We generate music to promote studying and keep your tempo up while you are grinding hard!</h3>
+                <h2>Study and Jam</h2>
+                <h3>Listen to suggested music by entering your favorite music genre and listen along during your study session!</h3>
             </div>
         </div>
+        <div class="position-relative">
+            <div class="text-block-2">
+                <h2>Sip and Study</h2>
+                <h3>Discover your city's cafes and coffee shops for a change of study space and appetite.</h3>
+            </div>
     </body>
 </html>

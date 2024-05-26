@@ -3,10 +3,6 @@ import requests
 from dotenv import load_dotenv
 import os
 import openai
-from flask_sqlalchemy import SQLAlchemy 
-from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required
-from werkzeug.security import generate_password_hash, check_password_hash
-
 
 
 
@@ -145,7 +141,7 @@ def openai_test(subject, learner):
 #FLASK HANDLING
 
 
- 
+app = Flask(__name__)
 
 @app.route('/')
 def home():
