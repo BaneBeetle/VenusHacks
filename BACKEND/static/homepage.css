@@ -1,4 +1,12 @@
-/* homepage css */
+/* homepage.css */
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #988686;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
 
 .navbar {
     position: fixed;
@@ -14,12 +22,10 @@
     transition: opacity 0.3s;
 }
 
-/* Styling for navigation bar on hover */
 .navbar:hover {
     opacity: 1;
 }
 
-/* Styling for navigation bar buttons */
 .navbar-buttons {
     display: inline-block;
 }
@@ -27,7 +33,6 @@
 .navbar-buttons a {
     color: #141010;
     text-decoration: none;
-    font-family: 'Poppins', sans-serif;
     padding: 10px;
     margin: 30px;
     transition: background-color 0.3s;
@@ -37,27 +42,55 @@
     background-color: #DDD6D6;
 }
 
-a:active,
-label,
-.form-group {
-    font-family: 'Poppins', sans-serif;
-    color: rgb(0, 0, 0);
-    font-size: 1vw;
-}
-
 .container {
     width: 100%;
-    background-color:#988686;
-    margin-bottom: 9%;
+    background-color: #988686;
+    margin-bottom: 10%;
+    text-align: center;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.container-2 {
+    width: 100%;
+    background-color: #E6E3E3;
+    padding-right: 5%;
+    padding-left: 5%;
+}
+
+.content-flex {
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 60vh; /* Adjust as needed */
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
 }
 
 .position-relative {
     display: flex;
     align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.text-block-2, .image-block {
+    flex: 1;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.text-block-2 {
+    background-color: #E6E3E3;
+}
+
+.image-block {
+    text-align: center;
+}
+
+.image-block figure {
+    margin: 0;
 }
 
 p {
@@ -65,9 +98,7 @@ p {
     color: #D1D0D0;
     font-weight: 100;
     font-size: 150%;
-    margin-top: 2%;
-    margin-right: 20%;
-    margin-left: 20%;
+    margin: 2% 20%;
 }
 
 h1 {
@@ -83,8 +114,8 @@ h2 {
     font-weight: 100;
     color: #000000;
     font-size: 200%;
+    margin-right: 15%;
     margin-left: 10%;
-    margin-right: 10%;
 }
 
 h3 {
@@ -92,35 +123,37 @@ h3 {
     font-weight: 200;
     color: #000000;
     font-size: 100%;
+    margin-right: 15%;
     margin-left: 10%;
-    margin-right: 60%;
 }
 
-body {
-    background-color:#988686;
-    width: 100%;
-    font-family: 'Poppins', sans-serif; /* Use Poppins font */
-}
-
-.center-text {
-    text-align: center;
-}
-.text-block-2 {
-    background-color: #E6E3E3; 
-    height: 100%;
-    width: 100%;
-    position: relative;
-    overflow: hidden; 
-  }
-
-  .my-button {
+.my-button {
     background-color: #5C4E4E;
     border: none;
     color: white;
-    padding: 1.2%;
+    padding: 10px 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 1.5em;
+    font-size: 1em;
     border-radius: 7%;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-left: 10%;
+}
+
+.my-button:hover {
+    background-color: #4a3d3d;
+}
+
+.side-image {
+    margin-top: 6%;
+    max-width: 200px;
+    height: auto;
+}
+
+.image-text {
+    max-width: 90%;
+    height: auto;
+    display: block;
 }
