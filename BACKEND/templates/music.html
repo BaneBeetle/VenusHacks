@@ -1,3 +1,5 @@
+<!-- music html -->
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,8 +8,8 @@
     <meta name="description" content="Music">
     <link rel="stylesheet" href="{{ url_for('static', filename='music.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+    <script>src='static/musicScript.js'</script>
     <title>Music</title>
-    <script src="{{ url_for('static', filename='musicScript.js') }}"></script>
 </head>
 <body>
     <!-- Navigation bar -->
@@ -34,7 +36,7 @@
 
     <!-- Playlist display section -->
     <div class="text-block-2">
-        <div class="playlist-container">
+        <div class="playlist-container" id="musicForm">
             {% if responses %}
                 {% for response in responses %}
                 <div class="col-md-4">
@@ -55,31 +57,5 @@
             {% endif %}
         </div>
     </div>
-</body>
-    <!-- Main container -->
-    <div class="container">
-        <div class="center-text">
-            <h1>Search For Your Favorite Study-Music Genre</h1>
-            <form method="post" class="search-form" action="{{ url_for('music') }}">
-                <label for="category">Category:</label>
-                <input type="text" id="category" name="category" required>
-                <button id='category'type="submit">Search</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Playlist display section -->
-    <div class="text-block-2">
-        <div class="playlist-container" id="musicForm">
-            {% if responses %}
-                {% for response in responses %}
-                    <div>{{ response }}</div>
-                {% endfor %}
-            {% endif %}
-        </div>
-        <div id="display"></div>
-    </div>
-
-    <div id="musicForm"></div>
 </body>
 </html>

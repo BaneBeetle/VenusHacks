@@ -1,3 +1,4 @@
+/* cafes css */
 .navbar {
     position: fixed;
     top: 0;
@@ -54,7 +55,7 @@ p {
 }
 .container {
     width: 100%;
-    margin: 1.5%;
+    margin: .2%;
 }
 
 h1 {

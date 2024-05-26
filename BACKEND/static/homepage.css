@@ -1,3 +1,5 @@
+/* homepage css */
+
 .navbar {
     position: fixed;
     top: 0;
@@ -46,7 +48,11 @@ label,
 .container {
     width: 100%;
     background-color:#988686;
-    margin-bottom: 10%;
+    margin-bottom: 9%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh; /* Adjust as needed */
 }
 
 .position-relative {
@@ -115,6 +121,6 @@ body {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 1em;
+    font-size: 1.5em;
     border-radius: 7%;
 }

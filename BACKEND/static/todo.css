@@ -1,15 +1,100 @@
-body {
-    font-family: Arial, sans-serif;
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
+/* Body styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #ac8888; /* Set your desired background color */
+    color: #46271f; /* Set your desired text color */
+    line-height: 2;
+    padding-top: 160px; /* Adjust as needed */
+}
+
+/* Navbar styles */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    width: 100%;
+    transform: translateX(-50%);
+    background-color: #E6E3E3;
+    padding: 2%;
+    text-align: center;
+    z-index: 1000;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.navbar-buttons a {
+    color: #141010;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    padding: 10px;
+    margin: 30px;
+    transition: background-color 0.3s;
+}
+
+.navbar-buttons a:hover {
+    text-decoration: underline;
+}
+
+/* Page content styles */
 h1 {
     text-align: center;
+    margin-bottom: 20px;
+    font-size: 60px;
 }
 
 form {
+    text-align: center;
     margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 30px;
+}
+
+input[type="text"] {
+    width: 60%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button[type="submit"] {
+    padding: 8px 20px;
+    font-size: 16px;
+    background-color: #311f1f;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #1a1010;
+}
+
+/* Todo list styles */
+.container {
+    list-style-type: none;
+    font-size: 20px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: #777;
 }
 
 ul {
@@ -17,14 +102,11 @@ ul {
     padding: 0;
 }
 
-li {
-    margin-bottom: 5px;
+ul li {
+    text-align: center;
+    margin: 10px 0;
 }
 
-input[type="checkbox"] {
-    margin-right: 10px;
-}
-
-.completed {
-    text-decoration: line-through;
+ul li label {
+    display: inline-block;
 }

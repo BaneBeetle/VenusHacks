@@ -1,3 +1,5 @@
+<!-- flashcards html -->
+
 <!doctype html>
 
 <html lang="en">
@@ -8,7 +10,6 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='flashcards.css') }}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
         <title>Videos</title>
-        <script src="{{ url_for('static', filename='flashcardsScript.js') }}"></script>
     </head>
 
     <body>
@@ -17,6 +18,7 @@
             <div class="navbar-buttons">
                 <a href="{{ url_for('home') }}">Home</a>
                 <a href="{{ url_for('flashcards') }}">Flashcards</a>
+                <a href="{{ url_for('todo') }}">To-Do Planner</a>
                 <a href="{{ url_for('videos') }}">Videos</a>
                 <a href="{{ url_for('music') }}">Music</a>
                 <a href="{{ url_for('cafes') }}">Cafes</a>
