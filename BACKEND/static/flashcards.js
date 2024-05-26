@@ -1,6 +1,9 @@
-// scripts.js
+// static/scripts.js
 document.querySelectorAll('.flashcard').forEach(card => {
     card.addEventListener('click', () => {
-        card.querySelector('.flashcard-inner').classList.toggle('is-flipped');
+        card.classList.toggle('is-flipped');
+    });
+    card.addEventListener('mouseleave', () => {
+        card.classList.remove('is-flipped');
     });
 });
