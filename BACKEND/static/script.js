@@ -1,81 +1,42 @@
-// document.addEventListener('DOMContentLoaded', function() {
-//     const form = document.querySelector('form');
-//     const playlistContainer = document.getElementById('playlist-container');
-//     const messageContainer = document.getElementById('no-playlist-message');
 
-//     form.addEventListener('submit', function(event) {
-//         event.preventDefault();  // Prevent the form from submitting traditionally
 
-//         const formData = new FormData(form);
-//         fetch('/templates/music.html', {  // '/music.html' is Flask route handling the POST request
-//             method: 'POST',
-//             body: formData
-//         })
-//         .then(response => response.text())
-//         .then(playlists => {
-//             if (playlists.length > 0) {
-//                 updatePlaylists(playlists);
-//                 messageContainer.innerHTML = playlists; // Hide the "no playlists" message
-//             } else {
-//                 playlistContainer.innerHTML = ''; // Clear previous results
-//                 messageContainer.style.display = 'block'; // Show "no playlists" message
-//             }
-//             localStorage.setItem('playlists', playlistContainer.innerHTML); // Save to local storage
-//             console.log('local storage reached')
-//         })
-//         .catch(error => {
-//             console.error('Error fetching playlists:', error);
-//             messageContainer.textContent = 'Failed to load playlists. Please try again.';
-//             messageContainer.style.display = 'block';
-//         });
-//     });
+document.addEventListener('DOMContentLoaded', function() {
+    // Retrieve the form element by its ID
+    const formElement = document.getElementById('musicForm');
+    const categoryButton = document.getElementById('category');
 
-//     // Function to update the playlist display
-//     function updatePlaylists(playlists) {
-//         playlistContainer.innerHTML = playlists.map(playlist => `
-//             <div>
-//                 <h5>${playlist.title}</h5>
-//                 <a href="${playlist.url}" target="_blank">Watch on YouTube</a>
-//             </div>
-//         `).join('');
-//     }
+    // Setting an item
+    localStorage.setItem('testKey', 'testValue');
 
-//     // Load playlists from local storage on page load
-//     function loadPlaylists() {
-//         const savedPlaylists = localStorage.getItem('playlists');
-//         if (savedPlaylists) {
-//             playlistContainer.innerHTML = savedPlaylists;
-//             messageContainer.style.display = 'none'; // Ensure no playlist message is hidden if playlists exist
-//         }
-//     }
+    // Getting an item
+    const value = localStorage.getItem('testKey');
+    console.log(value);  // Should log 'testValue'. WORKS
 
-//     loadPlaylists(); // Call loadPlaylists to display any saved playlists on page load
-// });
+    const value2 = localStorage.getItem('user');
+    console.log(value);  // Should log 'testValue'. WORKS
+    console.log(value2)
+    if(value2){
+        document.getElementById('display').innerHTML = value2;
+    }
+    // Check if the form element exists
+    if (formElement.innerText) {
+        console.log(formElement.innerText)
+        // Retrieve the inner text of the form, for whatever purpose you need it
 
-// document.addEventListener('DOMContentLoaded', function() {
-//     const form = document.getElementById('musicForm');
-//     const resultsContainer = document.getElementById('results'); // Ensure you have this ID in your HTML
+        // Store the inner text in local storage
+        localStorage.setItem('user', formElement.innerHTML);
 
-//     // Load playlist data from local storage if available
-//         if (localStorage.getItem('playlists')) {
-//             resultsContainer.innerHTML = localStorage.getItem('playlists');
-//         }
-//     form.addEventListener('submit', function(event) {
-//         event.preventDefault(); // Prevent default form submission which causes page reload
+        // Add a submit event listener to the form
+        // formElement.addEventListener('submit', function(event) {
+        //     event.preventDefault();
+        //     console.log("event is being triggered")
+        //     const bro3 = localStorage.getItem('user');  // Log the data on submit
+        //     console.log(bro3);
 
-//         const formData = new FormData(form);
-//         fetch('/music.html', { // Adjust this URL to match your Flask route
-//             method: 'POST',
-//             body: formData
-//         })
-//         .then(response => response.text()) // Expecting HTML, so use `.text()` instead of `.json()`
-//         .then(htmlContent => {
-//             resultsContainer.innerHTML = htmlContent; // Insert the HTML into the DOM
-//         })
-//         .catch(error => {
-//             console.error('Error fetching HTML content:', error);
-//             resultsContainer.innerHTML = '<p>Error loading content.</p>'; // Display error in the DOM
-//         });
-//     });
-// });
+        //  });
+    } else {
+        console.log("No element with ID 'musicForm' found");
+    }
+});
+
 
