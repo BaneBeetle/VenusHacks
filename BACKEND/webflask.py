@@ -3,9 +3,18 @@ import requests
 from dotenv import load_dotenv
 import os
 import openai
+from flask_sqlalchemy import SQLAlchemy 
+from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 app = Flask(__name__)
+
+app.config['SECRET_KEY'] = 'LLLL'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = 
 
 
 YELP_API_KEY = 'hYkh7Y38ofnKkkZCLXNoSzo9btQj7eYM7v0hbAyQ0gWSPvm236SOY1RB9oaPg5x1OA8dozm2tICepSMNZpd4XLXUiXyu2HTUa8dOEOJdQ8C8wNeRd1e-cvh35mxRZnYx'
@@ -97,7 +106,6 @@ def openai_test(subject, learner):
                 string += chunk.choices[0].delta.content
             else:
                 responses.append(string.split("\n"))
-                print('LIKE ARE EWR EVEN HERE???')
                 string = ""
 
     return responses
@@ -106,6 +114,9 @@ def openai_test(subject, learner):
 
 
 #FLASK HANDLING
+
+
+ 
 
 @app.route('/')
 def home():
