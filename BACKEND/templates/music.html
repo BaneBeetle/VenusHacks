@@ -20,40 +20,42 @@
                 <a href="{{ url_for('cafes') }}">Cafes</a>
             </div>
         </div>
+    </div>
 
-        <!-- Main container -->
-        <div class="container">
-            <div class="center-text">
-                <h1>Search For Your Favorite Study-Music Genre</h1>
-                <form method="post" action="/musicResults.html" class = "search-form">
-                    <label for="category">Subject:</label>
-                    <input type="text" id="category" name="category" required>
-                    <button type="submit">Search</button>
-                </form>
-            </div>
+    <!-- Main container -->
+    <div class="container">
+        <div class="center-text">
+            <h1>Search For Your Favorite Study-Music Genre</h1>
+            <form method="post" class="search-form" action="{{ url_for('music') }}">
+                <label for="category">Category:</label>
+                <input type="text" id="category" name="category" required>
+                <button type="submit">Search</button>
+            </form>
         </div>
-        <!-- Playlist display section -->
-        <div class="text-block-2">
-            {% for response in responses %}
-            <div class="response">{{ response }}</div>
-            {% endfor %}
-        </div>
-    </body> 
-</html>
-            <!-- Playlist display section -->
-            <!-- <div class="playlist-results">
-                <h2>Playlists:</h2>
-                {% if playlists %}
-                    <ul>
-                    {% for playlist in playlists %}
-                        <li><a href="{{ playlist.url }}" target="_blank">{{ playlist.title }}</a></li>
-                    {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>No playlists found. Try a different category!</p>
-                {% endif %}
-            </div>
-        </div> -->
+    </div>
 
-    </body>
+    <!-- Playlist display section -->
+    <div class="text-block-2">
+        <div class="playlist-container">
+            {% if responses %}
+                {% for response in responses %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="position-relative">
+                                <div class="container">
+                                    <h2> {{response['title']}} </h2>
+                                    <a href="{{ response['url'] }}" target="_blank" class="button">Give a listen</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <h1>No results</h1>
+            {% endif %}
+        </div>
+    </div>
+</body>
 </html>

@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import os
 import openai
 
+app = Flask(__name__)
 
 
 YELP_API_KEY = 'hYkh7Y38ofnKkkZCLXNoSzo9btQj7eYM7v0hbAyQ0gWSPvm236SOY1RB9oaPg5x1OA8dozm2tICepSMNZpd4XLXUiXyu2HTUa8dOEOJdQ8C8wNeRd1e-cvh35mxRZnYx'
@@ -26,34 +27,7 @@ def search_cafes_in_city(city):
         return cafes  
     else:
         return None
-
     
-    
-# def fetch_playlists(category, max_results=10):
-#     params = {
-#         'part': 'snippet',
-#         'q': category,
-#         'type': 'playlist',
-#         'maxResults': max_results,
-#         'key': YOUTUBE_API_KEY
-#     }
-#     response = requests.get(BASE_URL, params=params)
-#     playlists = response.json()
-#     return playlists
-
-
-# def display_playlists(category):
-#     playlists = fetch_playlists(category)
-#     if 'items' in playlists:
-#         for item in playlists['items']:
-#             playlist_title = item['snippet']['title']
-#             playlist_id = item['id']['playlistId']
-#             playlist_url = f'https://www.youtube.com/playlist?list={playlist_id}'
-#             print(f'{playlist_title}: {playlist_url}\n')
-#     else:
-#         print("No playlists found.") 
-
-
 
 def configure(): 
     load_dotenv()
@@ -134,7 +108,16 @@ def openai_test(subject, learner):
 
     return responses
 
+def generate_tips(learner): # Will return a list of tips
+    configure()
+    OPENAI_API_KEY = os.getenv('api_key') # Grabs the API key and puts it into the variable OPENAI_API_KEY (Has to be named this)
+    openai.api_key = OPENAI_API_KEY # Feed it into openai
 
+    if not OPENAI_API_KEY:
+        raise ValueError("API Key not found. Please set the 'api_key' environment variable in your .env file.")
+    
+    client = openai.OpenAI(api_key=OPENAI_API_KEY) # Create a client, passing in the API key
+    learn_prompt = f"Provide 5 study tips if I am a {learner} learner?"
 
 #FLASK HANDLING
 
@@ -172,6 +155,29 @@ def cafes():
     return render_template('cafes.html', cafes=cafes)
 
 
+@app.route('/music', methods=['GET', 'POST'])
+def music():
+    if request.method == 'POST':
+        parts = []
+        category = request.form['category']
+        responses = openai_music_test(category)
+        processed_responses = []
+        for response_split in responses:
+            print("response_split: ", response_split)
+            for response in response_split:
+                print("response: ", response)
+                if " -" in response:
+                    parts = response.split(" -")
+                elif ":" in response:
+                    parts = response.split(":")
+                if len(parts) > 0:
+                    print("parts: ", parts)
+                    title = parts[0].strip().split(' ', 1)[1]  # remove the numbering
+                    url = parts[1].strip()
+                    processed_responses.append({'title': title, 'url': url})
+                    print("results: ", processed_responses)
+        return render_template('music.html', responses=processed_responses)
+    return render_template('music.html')
 
 
 # @app.route('/music.html', methods=['GET', 'POST'])    
@@ -200,14 +206,26 @@ def musicResult():
     return render_template('musicResults.html', responses=responses)
 
 @app.route('/video-submit', methods=['POST'])
-def videoresult():
-    print(request)
+def videos():
+    number = 0
     subject = request.form['subject']
     learner = request.form['learner']
     
     responses = openai_test(subject, learner)
-    return render_template('videoresults.html', responses=responses)
+    processed_responses = []
 
+    for response_split in responses:
+        for response in response_split:
+            print("response: ", response)
+            print("response splited: ", response.split(" h"))
+            if "http" in response:  # only process strings containing URLs
+                parts = response.split('tutorial: ', 1)
+                if len(parts) == 2:
+                    title = parts[0].strip().split(' ', 1)[1]  # remove the numbering
+                    url = parts[1].strip()
+                    processed_responses.append({'title': title, 'url': url})
+                    print("results: ", processed_responses)
+    return render_template('videos.html', responses=processed_responses)
 
 
 app.secret_key = 'your_secret_key'
