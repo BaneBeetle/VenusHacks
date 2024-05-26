@@ -40,6 +40,7 @@ a {
     font-family: 'Poppins', sans-serif;
     color: #5C4E4E;
     font-size: 1em;
+    margin-bottom: 2%;
 }
 
 label {
@@ -219,8 +220,7 @@ input[type="text"] {
     display: inline-block;
 }
 .tab-content {
-    display: flex;
-    justify-content: center;
+    display: none;
     padding: 5%;
 }
 .tab-content.active {
