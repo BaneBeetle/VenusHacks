@@ -122,6 +122,7 @@ def openai_test(subject):
 def home():
     return render_template('homepage.html')
 
+app.secret_key = 'rizzmaster'
 @app.route('/todo', methods=['GET', 'POST'])
 def todo():
     if 'tasks' not in session:
