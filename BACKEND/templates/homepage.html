@@ -1,57 +1,97 @@
-<!-- homepage html -->
-
 <!doctype html>
 
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="author" content="VenusHacks">
-        <meta name="description" content="Homepage">
-        <link rel="stylesheet" href="{{ url_for('static', filename='homepage.css') }}">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
-        <title>Home Page</title>
-    </head>
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="VenusHacks">
+    <meta name="description" content="Homepage">
+    <link rel="stylesheet" href="{{ url_for('static', filename='homepage.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+    <title>Home Page</title>
+</head>
 
-    <body>
-        <!-- Navigation bar -->
-        <div class="navbar">
-            <div class="navbar-buttons">
-                <a href="{{ url_for('home') }}">Home</a>
-                <a href="{{ url_for('flashcards') }}">Flashcards</a>
-                <a href="{{ url_for('videos') }}">Videos</a>
-                <a href="{{ url_for('music') }}">Music</a>
-                <a href="{{ url_for('cafes') }}">Cafes</a>
-            </div>
+<body>
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <div class="navbar-buttons">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('flashcards') }}">Flashcards</a>
+            <a href="{{ url_for('todo') }}">To-Do Planner</a>
+            <a href="{{ url_for('videos') }}">Videos</a>
+            <a href="{{ url_for('music') }}">Music</a>
+            <a href="{{ url_for('cafes') }}">Cafes</a>
         </div>
-        <div class="container">
-            <div class="center-text">
-                <h1>ZotStudy</h1>
-                <p>We provide you the services of creating a self-study atmosphere with our generated flashcards catered to your subject, relaxing music playlists, and Youtube video suggestions!</p>
+    </div>
+    <div class="container">
+        <div class="center-text">
+            <div class="content-flex">
+                <h1>MochaMinds</h1>
+                <img src="{{ url_for('static', filename='mocha_image.png') }}" class="side-image" alt="Mocha Image">
             </div>
+            <p>Mocha Mind strives to simplify and streamline all sources of effective studying, and especially to be intuitive to the user. We aim to counter cramming and unhealthy study culture through the centralized availability of resources, so that students can view education and learning as a positive, seamless experience.</p>
         </div>
-        <div class="position-relative">
+    </div>
+    <div class="container-2">
+        <div class="content-flex">
             <div class="text-block-2">
-                <h2>Create Flashcards and more!</h2>
-                <h3>Using information and notes about your subject you want to study for, we can generate flashcards for you!</h3>
+                <h2>Smart Flashcards</h2>
+                <h3>Submit a single course title into our generative model to utilize our Smart Flashcards to efficiently study for course material.</h3>
+                <a href="{{ url_for('flashcards') }}" target="_blank" class="my-button">Start generating</a>
+            </div>
+            <div class="image-block">
+                <figure>
+                    <img src="{{ url_for('static', filename='flashcards.png') }}" class="image-text" alt="Mocha Image">
+                </figure>
             </div>
         </div>
-        <div class="position-relative">
+        <div class="content-flex">
+            <div class="image-block">
+                <figure>
+                    <img src="{{ url_for('static', filename='videos.png') }}" class="image-text" alt="Mocha Image">
+                </figure>
+            </div>
             <div class="text-block-2">
-                <h2>YouTube video suggestions</h2>
-                <h3>We will provide you YouTube video suggestions to help enhance your learning and studying session!</h3>
+                <h2>Need help studying?</h2>
+                <h3>Did you know each person has their own suitable learning style? Enhance your learning experience and potential with a variety of suggested YouTube videos as well as notes and tips to efficiently study!</h3>
+                <a href="{{ url_for('videos') }}" target="_blank" class="my-button">Start watching</a>
             </div>
         </div>
-        <div class="position-relative">
+        <div class="content-flex">
             <div class="text-block-2">
-                <h2>Listen to relaxing music/asmr</h2>
-                <h3>We generate music to promote studying and keep your tempo up while you are grinding hard!</h3>
+                <h2>To-Do Planner</h2>
+                <h3>Streamline your daily tasks effortlessly to manage your schedule easier!</h3>
+                <a href="{{ url_for('todo') }}" target="_blank" class="my-button">Start checking off</a>
+            </div>
+            <div class="image-block">
+                <figure>
+                    <img src="{{ url_for('static', filename='todo.png') }}" class="image-text" alt="Mocha Image">
+                </figure>
             </div>
         </div>
-        <div class="position-relative">
+        <div class="content-flex">
+            <div class="image-block">
+                <figure>
+                    <img src="{{ url_for('static', filename='music.png') }}" class="image-text" alt="Mocha Image">
+                </figure>
+            </div>
             <div class="text-block-2">
-                <h2>Find new study spots</h2>
-                <h3>Search up the best spots for your study session while enjoying a cup of coffee near by you!</h3>
+                <h2>Brain Dancebreak!</h2>
+                <h3>Jam out to music while studying by entering a preferred musical genre, displaying multiple options to handpick from.</h3>
+                <a href="{{ url_for('music') }}" target="_blank" class="my-button">Start listening</a>
             </div>
         </div>
-    </body>
+        <div class="content-flex">
+            <div class="text-block-2">
+                <h2>Coffee Corner</h2>
+                <h3>Switch up the study spot and find a local coffee spot in your city!</h3>
+                <a href="{{ url_for('cafes') }}" target="_blank" class="my-button">Start sipping</a>
+            </div>
+            <div class="image-block">
+                <figure>
+                    <img src="{{ url_for('static', filename='cafe_studying.png') }}" class="image-text" alt="Mocha Image">
+                </figure>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
