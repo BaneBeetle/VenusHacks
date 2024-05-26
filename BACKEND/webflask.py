@@ -97,7 +97,6 @@ def openai_test(subject, learner):
                 string += chunk.choices[0].delta.content
             else:
                 responses.append(string.split("\n"))
-                print('LIKE ARE EWR EVEN HERE???')
                 string = ""
 
     return responses
