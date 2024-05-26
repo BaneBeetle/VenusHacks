@@ -31,9 +31,16 @@
         </div>
         <div class="container">
             <div class="center-text">
-                <form method="POST" class="search-form">
+                <form method="POST" action="/flashcards" class="search-form">
                     <label for="category">Enter a Subject:</label>
                     <input type="text" id="category" name="category" required>
+                    <label for="learner"><br>Amount of Flashcards:</label>
+                    <select id="learning_menu" name="learner">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                    </select>
                     <button type="submit">Search</button>
                 </form>
             </div>
@@ -47,7 +54,7 @@
                                 <p>{{ flash['Question']}}</p>
                             </div>
                             <div class="flashcard-back">
-                                <p>{{ flash['Answer'] }}</p>
+                                <h4>{{ flash['Answer'] }}</h4>
                             </div>
                         </div>
                     </div>
