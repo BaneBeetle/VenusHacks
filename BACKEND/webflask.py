@@ -163,6 +163,36 @@ def generate_flashcards(subject): # Will return a string formatted in JSON
             return string
     return string
 
+def youtube_test(subject):
+    configure()
+    api_service_name = "youtube"
+    api_version = "v3"
+    DEVELOPER_KEY = os.getenv('YOUTUBE_KEY')
+
+    return_list = []
+
+    youtube = googleapiclient.discovery.build(api_service_name, api_version, developerKey=DEVELOPER_KEY)
+    request = youtube.search().list(
+        part='snippet',
+        q=subject,
+        maxResults=1,
+        order="relevance",
+        type="video"
+    )
+    return_value = request.execute()
+    
+    for items in return_value['items']:
+        #print(items['snippet']['title'])
+        x = items['id']['videoId']
+        link = f"https://www.youtube.com/watch?v={x}"
+        #print(link)
+
+        return_list.append([items['snippet']['title'], items['id']['videoId'], link, items['snippet']['thumbnails']['high']['url']])
+
+    return return_list
+
+
+
 #FLASK HANDLING
 
 @app.route('/')
