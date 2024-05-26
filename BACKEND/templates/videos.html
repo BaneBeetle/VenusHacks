@@ -17,7 +17,6 @@
             <div class="navbar-buttons">
                 <a href="{{ url_for('home') }}">Home</a>
                 <a href="{{ url_for('flashcards') }}">Flashcards</a>
-                <a href="{{ url_for('todo') }}">To-Do Planner</a>
                 <a href="{{ url_for('videos') }}">Videos</a>
                 <a href="{{ url_for('music') }}">Music</a>
                 <a href="{{ url_for('cafes') }}">Cafes</a>
@@ -49,46 +48,47 @@
             <div class="tab" onclick="openTab(event, 'studytips')">Study Tips</div>
             <div class="tab" onclick="openTab(event, 'youtubevideos')">YouTube Videos</div>
         </div>
-    
-        <div id="studytips" class="tab-content">
-            {% if responses %}
-                <div class="card-container">
-                    {% for response in responses %}
-                        {% if response.strip() %}
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="position-relative">
-                                        <p class="card-text">{{ response }}</p>
+        
+        <div class="text-block-2">
+            <div id="studytips" class="tab-content">
+                {% if responses %}
+                    <div class="card-container">
+                        {% for response in responses %}
+                            {% if response.strip() %}
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="position-relative">
+                                            <p class="card-text">{{ response }}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            {% else %}
-                <p>No results</p>
-            {% endif %}
-        </div>
-    
-        <div id="youtubevideos" class="tab-content">
-            {% if youtube_videos %}
-                <div class="card-container">
-                    {% for video in youtube_videos %}
-                        <div class="card">
-                            <div class="card-body">
-                                <h2>{{ video[0] }}</h2>
-                                <a href="{{ video[2] }}" target="_blank">Check it out</a>
-                                <br>
-                                <div class="iframe-container">
-                                    <iframe src="https://www.youtube.com/embed/{{ video[1] }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        
+            <div id="youtubevideos" class="tab-content">
+                {% if youtube_videos %}
+                    <div class="card-container">
+                        {% for video in youtube_videos %}
+                            <div class="card">
+                                <div class="card-body">
+                                    <h2>{{ video[0] }}</h2>
+                                    <a href="{{ video[2] }}" target="_blank">Check it out</a>
+                                    <br> <br>
+                                    <div class="iframe-container">
+                                        <iframe src="https://www.youtube.com/embed/{{ video[1] }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    </div>
+                                    <br>
                                 </div>
                             </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            {% else %}
-                <p>No results</p>
-            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>No results</p>
+                {% endif %}
+            </div>
         </div>
     </body> 
     <script src="{{ url_for('static', filename='videos.js') }}"></script>
