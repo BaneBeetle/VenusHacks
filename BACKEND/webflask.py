@@ -31,37 +31,72 @@ def search_cafes_in_city(city):
 
     
     
-def fetch_playlists(category, max_results=10):
-    params = {
-        'part': 'snippet',
-        'q': category,
-        'type': 'playlist',
-        'maxResults': max_results,
-        'key': YOUTUBE_API_KEY
-    }
-    response = requests.get(BASE_URL, params=params)
-    playlists = response.json()
-    print(playlists)
-    return playlists
+# def fetch_playlists(category, max_results=10):
+#     params = {
+#         'part': 'snippet',
+#         'q': category,
+#         'type': 'playlist',
+#         'maxResults': max_results,
+#         'key': YOUTUBE_API_KEY
+#     }
+#     response = requests.get(BASE_URL, params=params)
+#     playlists = response.json()
+#     return playlists
 
 
-def display_playlists(category):
-    playlists = fetch_playlists(category)
-    if 'items' in playlists:
-        for item in playlists['items']:
-            playlist_title = item['snippet']['title']
-            playlist_id = item['id']['playlistId']
-            playlist_url = f'https://www.youtube.com/playlist?list={playlist_id}'
-            print(f'{playlist_title}: {playlist_url}\n')
-    else:
-        print("No playlists found.")
-        
-        
+# def display_playlists(category):
+#     playlists = fetch_playlists(category)
+#     if 'items' in playlists:
+#         for item in playlists['items']:
+#             playlist_title = item['snippet']['title']
+#             playlist_id = item['id']['playlistId']
+#             playlist_url = f'https://www.youtube.com/playlist?list={playlist_id}'
+#             print(f'{playlist_title}: {playlist_url}\n')
+#     else:
+#         print("No playlists found.") 
 
 
 
 def configure(): 
     load_dotenv()
+
+def openai_music_test(category):
+    OPENAI_API_KEY = os.getenv('api_key')
+    if OPENAI_API_KEY is None:
+        raise ValueError("API Key not found.")
+
+    openai.api_key = OPENAI_API_KEY 
+
+    if not OPENAI_API_KEY:
+        raise ValueError("API Key not found. Please set the 'api_key' environment variable in your .env file.")
+    
+    client = openai.OpenAI(api_key=OPENAI_API_KEY) 
+
+    prompts = [] 
+
+    prompt = f"Please give me some links from Youtube for music playlist to help study {category}" 
+    prompts.append(prompt)
+
+    responses = []
+
+    for specific_prompt in prompts:
+        string = ""
+        stream = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": specific_prompt}],
+            stream=True,
+        )
+
+        for chunk in stream:
+            # print(chunk, 'df')
+            if chunk.choices[0].delta.content is not None:
+                string += chunk.choices[0].delta.content
+            else:
+                responses.append(string.split("\n"))
+                print('LIKE ARE EWR EVEN HERE???')
+                string = ""
+
+    return responses    
 
 def openai_test(subject, learner):
     OPENAI_API_KEY = os.getenv('api_key')
@@ -93,10 +128,12 @@ def openai_test(subject, learner):
         )
 
         for chunk in stream:
+            # print(chunk, 'df')
             if chunk.choices[0].delta.content is not None:
                 string += chunk.choices[0].delta.content
             else:
                 responses.append(string.split("\n"))
+                print('LIKE ARE EWR EVEN HERE???')
                 string = ""
 
     return responses
@@ -118,6 +155,10 @@ def flashcards():
 def videos():
     return render_template('videos.html')
 
+@app.route('/music')
+def music():
+    return render_template('music.html')
+
 
 @app.route('/cafes.html', methods=['GET', 'POST'])    # HELEN NEEDS TO CREATE A CAFES SUBPAGE
 
@@ -130,28 +171,34 @@ def cafes():
 
 
 
-@app.route('/music.html', methods=['GET', 'POST'])    
-def music():
-    playlists = None
-    if request.method == 'POST':
-        if 'category' in request.form:
-            category = request.form['category']
-            playlists_json = fetch_playlists(category)
-            playlists = []
-            if 'items' in playlists_json:
-                for item in playlists_json['items']:
-                    playlist_title = item['snippet']['title']
-                    playlist_id = item['id']['playlistId']
-                    playlist_url = f'https://www.youtube.com/playlist?list={playlist_id}'
-                    playlists.append({'title': playlist_title, 'url': playlist_url})
+# @app.route('/music.html', methods=['GET', 'POST'])    
+# def music():
+#     playlists = None
+#     if request.method == 'POST':
+#         if 'category' in request.form:
+#             category = request.form['category']
+#             playlists_json = fetch_playlists(category)
+#             playlists = []
+#             if 'items' in playlists_json:
+#                 for item in playlists_json['items']:
+#                     playlist_title = item['snippet']['title']
+#                     playlist_id = item['id']['playlistId']
+#                     playlist_url = f'https://www.youtube.com/playlist?list={playlist_id}'
+#                     playlists.append({'title': playlist_title, 'url': playlist_url})
 
-    return render_template('music.html', playlists=playlists)
-
-
+#     return render_template('music.html', playlists=playlists)
 
 
-@app.route('/videosactual.html', methods=['POST'])
+@app.route('/musicResults.html', methods=['GET', 'POST'])    
+def musicResult():
+    print(request)
+    category = request.form['category']
+    responses = openai_music_test(category)
+    return render_template('musicResults.html', responses=responses)
+
+@app.route('/video-submit', methods=['POST'])
 def videoresult():
+    print(request)
     subject = request.form['subject']
     learner = request.form['learner']
     

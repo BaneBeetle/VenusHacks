@@ -24,14 +24,23 @@
         <div class="container">
             <div class="center-text">
                 <h1>Search For Your Favorite Study-Music Genre</h1>
-                <form method="post">
-                    <input type="text" name="category" placeholder="Enter music category" required>
+                <form method="post" action="/musicResults.html" class = "search-form">
+                    <label for="category">Subject:</label>
+                    <input type="text" id="category" name="category" required>
                     <button type="submit">Search</button>
                 </form>
             </div>
-            
+        </div>
+        <!-- Playlist display section -->
+        <div class="text-block-2">
+            {% for response in responses %}
+            <div class="response">{{ response }}</div>
+            {% endfor %}
+        </div>
+    </body> 
+</html>
             <!-- Playlist display section -->
-            <div class="playlist-results">
+            <!-- <div class="playlist-results">
                 <h2>Playlists:</h2>
                 {% if playlists %}
                     <ul>
@@ -43,7 +52,7 @@
                     <p>No playlists found. Try a different category!</p>
                 {% endif %}
             </div>
-        </div>
+        </div> -->
 
     </body>
 </html>
