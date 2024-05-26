@@ -51,7 +51,7 @@ label {
 p {
     font-family: 'Poppins', sans-serif;
     color: #000000;
-    font-size: 25px;
+    font-size: 15px;
     padding: 2%;
 }
 
@@ -87,12 +87,15 @@ body {
     justify-content: center;
     gap: 20px;
     margin-top: 20px;
+    background-color: #5C4E4E;
 }
 
 .flashcard {
-    width: 25%;
     height: 250px;
     perspective: 1000px;
+    width: 30%;
+    max-width: 100%;
+    word-wrap: break-word;
     cursor: pointer;
 }
 
@@ -177,4 +180,31 @@ input[type="text"] {
     width: auto; /* Adjusts button width if needed */
     align-self: center; /* Centers the button */
     margin-top: 20px;
+}
+
+.text-block-2 {
+    background-color: #D1D0D0;
+    height: auto;
+    width: 100%;
+    margin-top: 4%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    overflow: hidden; 
+    padding: 2%;
+}
+h2 {
+    font-family: 'Poppins', sans-serif;
+    color: #5C4E4E;
+    font-size: 2em;
+    padding: 2%;
+}
+
+h3 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
+    color: #000000;
+    font-size: 100%;
+    margin-left: 10%;
+    margin-right: 60%;
 }
