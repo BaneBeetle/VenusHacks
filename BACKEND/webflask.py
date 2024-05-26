@@ -89,7 +89,7 @@ def openai_test(subject):
 
     prompts = [] 
 
-    prompt = f"Please give me some videos links to help study {subject}" 
+    prompt = f"Please give me 5 videos links to help study {subject}" 
     prompts.append(prompt)
 
     responses = []
@@ -222,7 +222,7 @@ def generate_flashcards(subject, number): # Will return a string formatted in JS
             return string
     return string
 
-def youtube_test(subject, number):
+def youtube_test(subject):
     configure()
     api_service_name = "youtube"
     api_version = "v3"
@@ -234,7 +234,7 @@ def youtube_test(subject, number):
     request = youtube.search().list(
         part='snippet',
         q=subject,
-        maxResults=int(number),
+        maxResults=5,
         order="relevance",
         type="video"
     )
@@ -276,10 +276,6 @@ def parse_flashcards(flashcards_json):
         question = question_obj['Question']
         answer = question_obj['Answer']
         processed_responses.append({'Question': question, 'Answer': answer})
-        # Do something with the question and answer
-        print("Question:", question)
-        print("Answer:", answer)
-    print("results: ", processed_responses)
     return processed_responses
 
 if __name__ == '__main__':
