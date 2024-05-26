@@ -7,11 +7,6 @@ import os
 def configure(): # In charge of getting .env from my environment, this contains my API key
     load_dotenv()
 
-def try_site(url):
-    pattern = '"playabilityStatus":{"status":"ERROR","reason":"Video unavailable"'
-    request = requests.get(url)
-    return False if pattern in request.text else True
-
 def generate_flashcards(): # Will return a string formatted in JSON
     configure()
     OPENAI_API_KEY = os.getenv('api_key') # Grabs the API key and puts it into the variable OPENAI_API_KEY (Has to be named this)
@@ -116,10 +111,8 @@ def youtube_test(subject):
     return_value = request.execute()
     
     for items in return_value['items']:
-        #print(items['snippet']['title'])
         x = items['id']['videoId']
         link = f"https://www.youtube.com/watch?v={x}"
-        #print(link)
 
         return_list.append([items['snippet']['title'], items['id']['videoId'], link, items['snippet']['thumbnails']['high']['url']])
 
