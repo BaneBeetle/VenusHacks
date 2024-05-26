@@ -35,13 +35,24 @@
     background-color: #DDD6D6;
 }
 
-p,
-a:active,
-label,
-.form-group {
+
+a {
     font-family: 'Poppins', sans-serif;
-    color: rgb(0, 0, 0);
-    font-size: 1vw;
+    color: #5C4E4E;
+    font-size: 1em;
+}
+
+label {
+    font-family: 'Poppins', sans-serif;
+    color: #D1D0D0;
+    font-size: 1em;
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    color: #000000;
+    font-size: 25px;
+    padding: 2%;
 }
 
 .container {
@@ -69,4 +80,101 @@ body {
 
 .center-text {
     text-align: center;
+}
+.flashcards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.flashcard {
+    width: 25%;
+    height: 250px;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.flashcard-inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.flashcard.is-flipped .flashcard-inner {
+    transform: rotateY(180deg);
+}
+
+.flashcard-front,
+.flashcard-back {
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    padding: 10%;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.flashcard-front {
+    background-color: #f0f0f0;
+}
+
+.flashcard-back {
+    background-color: #fff;
+    transform: rotateY(180deg);
+}
+
+
+input[type="text"] {
+    width: 60%;
+    padding: 1%;
+    margin-bottom: 2%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.response {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.search-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-form label,
+.search-form input {
+    width: 50%;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.search-form button {
+    width: 50%;
+    margin-bottom: 2%;
+    text-align: left;
+    padding: 0.8%;
+}
+
+.search-form button {
+    width: auto; /* Adjusts button width if needed */
+    align-self: center; /* Centers the button */
+    margin-top: 20px;
 }
