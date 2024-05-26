@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Retrieve the form element by its ID
-    const formElement = document.getElementById('musicForm');
+    const formElement = document.getElementById('flashForm');
     const categoryButton = document.getElementById('category');
 
     // Setting an item
-    localStorage.setItem('testKey', 'testValue');
+    localStorage.setItem('testKey1', 'testValue1');
 
     // Getting an item
-    const value = localStorage.getItem('testKey');
+    const value = localStorage.getItem('testKey1');
     console.log(value);  // Should log 'testValue'. WORKS
 
     const value2 = localStorage.getItem('user');

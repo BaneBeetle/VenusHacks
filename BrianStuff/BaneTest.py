@@ -120,8 +120,8 @@ def youtube_test(subject):
 
 
 def main():
-    #response = generate_flashcards()
-    #print(response)
+    response = generate_flashcards()
+    print(response)
 
     #tips = generate_tips()
     #print(tips)
@@ -131,9 +131,9 @@ def main():
     #print(x)
     #print("hi")
 
-    t = youtube_test("Calculus")
+    #t = youtube_test("Calculus")
     #print(len(t['items']))
-    print(t)
+    #print(t)
 
         #print(items['snippet']['title'])
         #print(items['snippet']['channelTitle'])
