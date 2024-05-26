@@ -137,21 +137,49 @@ def cafes():
 @app.route('/music', methods=['GET', 'POST'])
 def music():
     if request.method == 'POST':
+        parts = []
         category = request.form['category']
         responses = openai_music_test(category)
-        return render_template('music.html', responses=responses)
+        processed_responses = []
+        for response_split in responses:
+            print("response_split: ", response_split)
+            for response in response_split:
+                print("response: ", response)
+                if " -" in response:
+                    parts = response.split(" -")
+                elif ":" in response:
+                    parts = response.split(":")
+                if len(parts) > 0:
+                    print("parts: ", parts)
+                    title = parts[0].strip().split(' ', 1)[1]  # remove the numbering
+                    url = parts[1].strip()
+                    processed_responses.append({'title': title, 'url': url})
+                    print("results: ", processed_responses)
+        return render_template('music.html', responses=processed_responses)
     return render_template('music.html')
 
 
-@app.route('/videos', methods=['POST'])
+@app.route('/video-submit', methods=['POST'])
 def videos():
-    print(request)
+    number = 0
     subject = request.form['subject']
     learner = request.form['learner']
     
     responses = openai_test(subject, learner)
-    return render_template('videos.html', responses=responses)
+    processed_responses = []
 
+    for response_split in responses:
+        for response in response_split:
+            print("response: ", response)
+            print("response splited: ", response.split(" h"))
+            if "http" in response:  # only process strings containing URLs
+                parts = response.split('tutorial: ', 1)
+                if len(parts) == 2:
+                    title = parts[0].strip().split(' ', 1)[1]  # remove the numbering
+                    url = parts[1].strip()
+                    processed_responses.append({'title': title, 'url': url})
+                    print("results: ", processed_responses)
+    return render_template('videos.html', responses=processed_responses)
 
 
 if __name__ == '__main__':
