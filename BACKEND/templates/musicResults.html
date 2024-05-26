@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Results</title>
+</head>
+<body>
+    <h1>Video Results</h1>
+    <div class="playlist-container">responses
+        {% if responses %}
+            {% for response in responses %}
+                {% for title in response %}
+                <br />
+                    {{ title }}
+                    <br />
+
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
+</html>

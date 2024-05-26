@@ -28,39 +28,48 @@ def search_cafes_in_city(city):
         return cafes  
     else:
         return None
-
     
-    
-def fetch_playlists(category, max_results=10):
-    params = {
-        'part': 'snippet',
-        'q': category,
-        'type': 'playlist',
-        'maxResults': max_results,
-        'key': YOUTUBE_API_KEY
-    }
-    response = requests.get(BASE_URL, params=params)
-    playlists = response.json()
-    return playlists
-
-
-def display_playlists(category):
-    playlists = fetch_playlists(category)
-    if 'items' in playlists:
-        for item in playlists['items']:
-            playlist_title = item['snippet']['title']
-            playlist_id = item['id']['playlistId']
-            playlist_url = f'https://www.youtube.com/playlist?list={playlist_id}'
-            print(f'{playlist_title}: {playlist_url}\n')
-    else:
-        print("No playlists found.")
-        
-        
-
-
 
 def configure(): 
     load_dotenv()
+
+def openai_music_test(category):
+    OPENAI_API_KEY = os.getenv('api_key')
+    if OPENAI_API_KEY is None:
+        raise ValueError("API Key not found.")
+
+    openai.api_key = OPENAI_API_KEY 
+
+    if not OPENAI_API_KEY:
+        raise ValueError("API Key not found. Please set the 'api_key' environment variable in your .env file.")
+    
+    client = openai.OpenAI(api_key=OPENAI_API_KEY) 
+
+    prompts = [] 
+
+    prompt = f"Please give me some links from Youtube for music playlist to help study {category}" 
+    prompts.append(prompt)
+
+    responses = []
+
+    for specific_prompt in prompts:
+        string = ""
+        stream = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": specific_prompt}],
+            stream=True,
+        )
+
+        for chunk in stream:
+            # print(chunk, 'df')
+            if chunk.choices[0].delta.content is not None:
+                string += chunk.choices[0].delta.content
+            else:
+                responses.append(string.split("\n"))
+                print('LIKE ARE EWR EVEN HERE???')
+                string = ""
+
+    return responses    
 
 def openai_test(subject, learner):
     OPENAI_API_KEY = os.getenv('api_key')
@@ -114,11 +123,6 @@ def home():
 def flashcards():
     return render_template('flashcards.html')
 
-@app.route('/videos')
-def videos():
-    return render_template('videos.html')
-
-
 @app.route('/cafes.html', methods=['GET', 'POST'])    # HELEN NEEDS TO CREATE A CAFES SUBPAGE
 
 def cafes():
@@ -129,36 +133,52 @@ def cafes():
     return render_template('cafes.html', cafes=cafes)
 
 
-
-@app.route('/music.html', methods=['GET', 'POST'])    
+@app.route('/music', methods=['GET', 'POST'])
 def music():
-    playlists = None
     if request.method == 'POST':
-        if 'category' in request.form:
-            category = request.form['category']
-            playlists_json = fetch_playlists(category)
-            playlists = []
-            if 'items' in playlists_json:
-                for item in playlists_json['items']:
-                    playlist_title = item['snippet']['title']
-                    playlist_id = item['id']['playlistId']
-                    playlist_url = f'https://www.youtube.com/playlist?list={playlist_id}'
-                    playlists.append({'title': playlist_title, 'url': playlist_url})
-
-    return render_template('music.html', playlists=playlists)
-
-
+        parts = []
+        category = request.form['category']
+        responses = openai_music_test(category)
+        processed_responses = []
+        for response_split in responses:
+            print("response_split: ", response_split)
+            for response in response_split:
+                print("response: ", response)
+                if " -" in response:
+                    parts = response.split(" -")
+                elif ":" in response:
+                    parts = response.split(":")
+                if len(parts) > 0:
+                    print("parts: ", parts)
+                    title = parts[0].strip().split(' ', 1)[1]  # remove the numbering
+                    url = parts[1].strip()
+                    processed_responses.append({'title': title, 'url': url})
+                    print("results: ", processed_responses)
+        return render_template('music.html', responses=processed_responses)
+    return render_template('music.html')
 
 
 @app.route('/video-submit', methods=['POST'])
-def videoresult():
-    print(request)
+def videos():
+    number = 0
     subject = request.form['subject']
     learner = request.form['learner']
     
     responses = openai_test(subject, learner)
-    return render_template('videoresults.html', responses=responses)
+    processed_responses = []
 
+    for response_split in responses:
+        for response in response_split:
+            print("response: ", response)
+            print("response splited: ", response.split(" h"))
+            if "http" in response:  # only process strings containing URLs
+                parts = response.split('tutorial: ', 1)
+                if len(parts) == 2:
+                    title = parts[0].strip().split(' ', 1)[1]  # remove the numbering
+                    url = parts[1].strip()
+                    processed_responses.append({'title': title, 'url': url})
+                    print("results: ", processed_responses)
+    return render_template('videos.html', responses=processed_responses)
 
 
 if __name__ == '__main__':

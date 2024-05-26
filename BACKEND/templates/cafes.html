@@ -31,26 +31,22 @@
     </div>
     <div class="text-block-2">
         {% if cafes %}
-            <div class="row">
-                {% for cafe in cafes %}
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="position-relative">
-                                    <div class="container">
-                                        <h5 class="card-title">{{ cafe['name'] }}</h5>
-                                        <p class="card-text">{{ cafe['location']['address1'] }}, {{ cafe['location']['city'] }}, {{ cafe['location']['state'] }}, {{ cafe['location']['zip_code'] }}</p>
-                                        <p class="card-text">{{ cafe['display_phone'] }}</p>
-                                        <a href="{{ cafe['url'] }}" target="_blank" class="button">Check it out on Yelp</a>
-                                    </div>
-                                    <div class="container">
-
-                                <img class="card-img-top" src="{{ cafe['image_url'] }}" alt="{{ cafe['name'] }}">
-                                    </div>
-                                </div>
+            {% for cafe in cafes %}
+                <div class="card">
+                    <div class="card-body">
+                        <div class="position-relative">
+                            <div class="container">
+                                <h5 class="card-title">{{ cafe['name'] }}</h5>
+                                <p class="card-text">{{ cafe['location']['address1'] }}, {{ cafe['location']['city'] }}, {{ cafe['location']['state'] }}, {{ cafe['location']['zip_code'] }}</p>
+                                <p class="card-text">{{ cafe['display_phone'] }}</p>
+                                <a href="{{ cafe['url'] }}" target="_blank" class="button">Check it out on Yelp</a>
+                            </div>
+                            <div class="container">
+                            <img class="card-img-top" src="{{ cafe['image_url'] }}" alt="{{ cafe['name'] }}">
                             </div>
                         </div>
                     </div>
+                </div>
                 {% endfor %}
             </div>
         {% else %}

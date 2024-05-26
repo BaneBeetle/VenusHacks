@@ -23,8 +23,81 @@
         </div>
         <div class="container">
             <div class="center-text">
-                <h1>Create flashcards</h1>
+                <h1>Create Flashcards</h1>
             </div>
         </div>
+        <div class="container">
+            <div class="center-text">
+                <form method="post" class="search-form">
+                    <label for="category">Enter a Subject:</label>
+                    <input type="text" id="category" name="category" required>
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class="flashcards-container">
+            <div class="flashcard">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <p>Question: What is the capital of France?</p>
+                    </div>
+                    <div class="flashcard-back">
+                        <p>Answer: Paris</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flashcard">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <p>Question: What is the capital of France?</p>
+                    </div>
+                    <div class="flashcard-back">
+                        <p>Answer: Paris</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flashcard">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <p>Question: What is the capital of France?</p>
+                    </div>
+                    <div class="flashcard-back">
+                        <p>Answer: Paris</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flashcard">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <p>Question: What is the capital of France?</p>
+                    </div>
+                    <div class="flashcard-back">
+                        <p>Answer: Paris</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flashcard">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <p>Question: What is the capital of France?</p>
+                    </div>
+                    <div class="flashcard-back">
+                        <p>Answer: Paris</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flashcard">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <p>Question: What is the capital of France?</p>
+                    </div>
+                    <div class="flashcard-back">
+                        <p>Answer: Paris</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more flashcards as needed -->
+        </div>
     </body>
+    <script src="{{ url_for('static', filename='flashcards.js') }}"></script>
 </html>
