@@ -206,7 +206,7 @@ def musicResult():
     return render_template('musicResults.html', responses=responses)
 
 @app.route('/video-submit', methods=['POST'])
-def videosresp():
+def videossubmit():
     number = 0
     subject = request.form['subject']
     learner = request.form['learner']
@@ -228,7 +228,9 @@ def videosresp():
     return render_template('videos.html', responses=processed_responses)
 
 
-app.secret_key = 'your_secret_key'
+
+
+app.secret_key = 'leahkang'
 @app.route('/todo', methods=['GET', 'POST'])
 def todotask():
     if 'tasks' not in session:
@@ -237,11 +239,9 @@ def todotask():
     if request.method == 'POST':
         task_content = request.form['task']
         session['tasks'].append(task_content)
+        session.modified = True  # Mark the session as modified after appending a task
 
     return render_template('todo.html', tasks=session['tasks'])
-
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)
