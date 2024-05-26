@@ -8,7 +8,6 @@
     <meta name="description" content="Music">
     <link rel="stylesheet" href="{{ url_for('static', filename='music.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
-    <script>src='static/musicScript.js'</script>
     <title>Music</title>
 </head>
 <body>
@@ -17,6 +16,7 @@
         <div class="navbar-buttons">
             <a href="{{ url_for('home') }}">Home</a>
             <a href="{{ url_for('flashcards') }}">Flashcards</a>
+            <a href="{{ url_for('todo') }}">To-Do Planner</a>
             <a href="{{ url_for('videos') }}">Videos</a>
             <a href="{{ url_for('music') }}">Music</a>
             <a href="{{ url_for('cafes') }}">Cafes</a>
@@ -26,6 +26,7 @@
     <div class="container">
         <div class="center-text">
             <h1>Search for music!</h1>
+            <h2>Let's get the brain juices jamming</h2>
             <form method="POST" class="search-form">
                 <label for="category">Music Category:</label>
                 <input type="text" id="category" name="category" required>
@@ -36,24 +37,24 @@
 
     <!-- Playlist display section -->
     <div class="text-block-2">
-        <div class="playlist-container" id="musicForm">
-            {% if responses %}
-                {% for response in responses %}
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="position-relative">
-                                <div class="container">
-                                    <h2> {{response['title']}} </h2>
-                                    <a href="{{ response['url'] }}" target="_blank" class="button">Give a listen</a>
+        <div id="youtubevideos" class="tab-content">
+            {% if youtube_videos %}
+                <div class="card-container">
+                    {% for video in youtube_videos %}
+                        <div class="card">
+                            <div class="card-body">
+                                <h2>{{ video[0] }}</h2>
+                                <a href="{{ video[2] }}" target="_blank">Listen on YouTube</a>
+                                <br><br>
+                                <div class="iframe-container">
+                                    <iframe src="https://www.youtube.com/embed/{{ video[1] }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             {% else %}
-                <h1>No results</h1>
+                <p>No results</p>
             {% endif %}
         </div>
     </div>

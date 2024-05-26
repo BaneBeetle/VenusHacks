@@ -40,6 +40,7 @@ a {
     font-family: 'Poppins', sans-serif;
     color: #5C4E4E;
     font-size: 1em;
+    margin-bottom: 2%;
 }
 
 label {
@@ -165,12 +166,8 @@ input[type="text"] {
     background-color: #5C4E4E;
     height: auto;
     width: 100%;
-    margin-top: 4%;
-    display: flex;
-    justify-content: center;
     position: relative;
     overflow: hidden; 
-    padding: 2%;
   }
 
  .card-container {
@@ -216,28 +213,28 @@ input[type="text"] {
     align-items: center;
   }
 
-  .tab {
+.tab {
     cursor: pointer;
-    padding: 3%;
+    padding: 2%;
     border-bottom: none;
     display: inline-block;
 }
 .tab-content {
     display: none;
-    padding: 20px;
-    border: 1px solid #ccc;
+    padding: 5%;
 }
 .tab-content.active {
     display: block;
 }
+
 .tabs-container {
     display: flex;
     justify-content: center;
-    background-color: #5C4E4E;
-
+    background-color: #D1D0D0;
 }
+
 .tabs-container .tab.active {
-    background-color: #ddd;
+    background-color: #ccc0c0;
 }
 .iframe-container {
     position: relative;

@@ -57,6 +57,14 @@ p {
     padding: 2%;
 }
 
+h4 {
+    font-family: 'Poppins', sans-serif;
+    color: #f3efef;
+    font-size: 15px;
+    font-weight: 100;
+    padding: 2%;
+}
+
 .container {
     width: 100%;
 }
@@ -137,10 +145,19 @@ body {
 }
 
 .flashcard-back {
-    background-color: #fff;
+    background-color: #988686;
     transform: rotateY(180deg);
 }
 
+.search-bar {
+    width: 15%;
+    padding: 0.2%;
+    font-size: 1.2em;
+    border: 2px solid #4a2e2e;
+    border-radius: 10px;
+    margin-top: 1%;
+    margin-left: 3%;
+}
 
 input[type="text"] {
     width: 60%;
@@ -209,4 +226,11 @@ h3 {
     font-size: 100%;
     margin-left: 10%;
     margin-right: 60%;
+}
+select {
+    width: 52%;
+    padding: 1%;
+    margin-bottom: 2%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
 }
