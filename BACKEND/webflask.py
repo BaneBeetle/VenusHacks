@@ -131,7 +131,7 @@ def cafes():
 
 
 @app.route('/music', methods=['GET', 'POST'])
-def music():
+def musicresp():
     if request.method == 'POST':
         parts = []
         category = request.form['category']
@@ -156,7 +156,7 @@ def music():
 
 
 @app.route('/videos', methods=['GET', 'POST'])
-def videos():
+def videossubmit():
     if request.method == "POST":
         print(request)
         learner = request.form['learner']
